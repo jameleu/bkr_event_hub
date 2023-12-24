@@ -13,12 +13,12 @@ class BlacklistListAPIView(generics.ListCreateAPIView):
 
 class BlacklistDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = BlacklistSerializer
-    lookup_field = 'user__username'
+    lookup_field = 'user__email'
 
     def get_object(self):
-        username = self.kwargs.get('username')
+        email = self.kwargs.get('email')
         try:
-            return Blacklist.objects.get(user__username=username, timestamp_removed__isnull=True)
+            return Blacklist.objects.get(user__email=email, timestamp_removed__isnull=True)
         except Blacklist.DoesNotExist:
             raise generics.Http404('User not found or not blacklisted')
 
@@ -47,12 +47,12 @@ class MembershipListAPIView(generics.ListCreateAPIView):
 
 class MembershipDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = MembershipSerializer
-    lookup_field = 'user__username'
+    lookup_field = 'user__email'
 
     def get_object(self):
-        username = self.kwargs.get('username')  # changes per request
+        email = self.kwargs.get('email')  # changes per request
         try:
-            return Membership.objects.get(user__username=username)
+            return Membership.objects.get(user__email=email)
         except Membership.DoesNotExist:
             raise generics.Http404('User not found or not a member')
 
