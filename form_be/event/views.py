@@ -1,5 +1,12 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+# events/views.py
+from rest_framework import generics
+from .models import Event
+from .serializers import EventSerializer
 
-def index(request):
-    return HttpResponse("Hello, world. You're at index.")
+class EventListAPIView(generics.ListCreateAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
+
+class EventDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Event.objects.all()
+    serializer_class = EventSerializer
