@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Event, Waitlist, Attendance
 
-# Register your models here.
+admin.site.register(Event)
+admin.site.register(Waitlist)
+admin.site.register(Attendance)
