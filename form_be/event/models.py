@@ -1,5 +1,5 @@
 from django.db import models
-from event.models import User
+from user.models import User
 
 class Event(models.Model):
     desc = models.TextField()

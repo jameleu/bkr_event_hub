@@ -80,7 +80,11 @@ WSGI_APPLICATION = 'form_be.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'formDB',
+        'NAME': 'form_db',
+        'USER': 'bkr',
+        'PASSWORD': 'p@ss1!$#@',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
