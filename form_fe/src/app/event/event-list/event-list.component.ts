@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { EventService } from '../event.service';
 import { Event } from '../event.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-event-list',
@@ -21,14 +22,20 @@ import { Event } from '../event.model';
     </p-table>
   `,
 })
-export class EventListComponent implements OnInit {
+export class EventListComponent implements OnInit, OnDestroy {
   events: Event[] = [];
+  private subscription: Subscription = new Subscription();
 
   constructor(private eventService: EventService) {}
 
   ngOnInit(): void {
-    this.eventService.getEvents().subscribe((events) => {
+    this.subscription = this.eventService.getEvents().subscribe((events) => {
       this.events = events;
     });
+  }
+  ngOnDestroy(): void {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

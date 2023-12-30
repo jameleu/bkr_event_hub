@@ -20,4 +20,13 @@ export class EventService {
       })
     );
   }
+  createEvent(newEvent: Event) {
+    // Make a POST request to the API endpoint to create a new event
+    return this.http.post<Event>(this.apiUrl, newEvent).pipe(
+      tap(() => {
+        // After successful creation, fetch updated events
+        this.getEvents().subscribe();
+      })
+    );
+  }
 }
