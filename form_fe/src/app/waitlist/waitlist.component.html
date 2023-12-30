@@ -1,0 +1,5 @@
+<div *ngFor="let name of waitlist">
+    <p>{{ shouldRedact(name) ? 'Reserved' : name }}</p>
+    <button *ngIf="!shouldRedact(name)" (click)="cancelReservation(name)">Cancel Reservation</button>
+  </div>
+  

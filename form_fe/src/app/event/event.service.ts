@@ -4,6 +4,7 @@ import { EventStore } from './event.store';
 import { Event } from './event.model'; // Import the centralized Event model
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,5 +29,8 @@ export class EventService {
         this.getEvents().subscribe();
       })
     );
+  }
+  signup(formData: any): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/signup`, formData);
   }
 }

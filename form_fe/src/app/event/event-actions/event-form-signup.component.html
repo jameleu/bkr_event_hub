@@ -1,0 +1,14 @@
+<form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <div class="p-field">
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" class="p-input" />
+    </div>
+    <div class="p-field">
+      <label for="email">Email</label>
+      <input id="email" type="text" formControlName="email" class="p-input" />
+    </div>
+    <div class="p-field">
+      <button type="submit" class="p-button p-button-primary">Sign Up</button>
+    </div>
+  </form>
+  

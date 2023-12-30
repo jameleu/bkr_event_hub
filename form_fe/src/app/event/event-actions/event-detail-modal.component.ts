@@ -9,7 +9,7 @@ import { Event } from '../event.model'; // Adjust the import path based on your 
     <div>
       <h4>{{ event.name }}</h4>
       <p>{{ event.description }}</p>
-      <!-- Add more details or customize as needed -->
+      <app-event-form-signup></app-event-form-signup>
     </div>
   `,
 })
