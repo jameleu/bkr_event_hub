@@ -1,56 +1,81 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { EventService } from '../event/event.service'; // Adjust the import path
-import { Subscription } from 'rxjs';
+// event-waitlist.component.ts
+
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { EventService } from '../event/event.service';
+import { Subscription, interval } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-event-waitlist',
   templateUrl: './event-waitlist.component.html',
-  styleUrls: ['./event-waitlist.component.css']
+  styleUrls: ['./event-waitlist.component.css'],
 })
 export class EventWaitlistComponent implements OnInit, OnDestroy {
   waitlist: string[] = [];
-  private updateSubscription: Timeout;
+  private updateSubscription: Subscription | undefined;
+  private eventId: string = "";
 
-  constructor(private eventService: EventService) {}
+  constructor(private eventService: EventService,
+    private route: ActivatedRoute) {
+
+  }
 
   ngOnInit(): void {
-    // Simulate periodic updates (replace with WebSocket or real-time solution)
-    this.updateSubscription = setInterval(() => {
-      this.refreshWaitlist();
-    }, 5000); // Update every 5 seconds initially
+    // Get the event ID from the route parameters
+    this.route.paramMap.subscribe((params : any) => {
+      this.eventId = params.get('eventId');
+      // Set up WebSocket connection
+      const ws = new WebSocket('ws://TODO');
+
+      // Handle WebSocket updates
+      ws.addEventListener('message', (event) => {
+        const newData = JSON.parse(event.data);
+        this.updateWaitlist(newData);
+      });
+
+      // Periodic HTTP polling every 30 seconds
+      this.updateSubscription = interval(30000).subscribe(() => {
+        this.refreshWaitlist();
+      });
+    });
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe to avoid memory leaks
+    // Clean up resources
     if (this.updateSubscription) {
-      clearInterval(this.updateSubscription);
+      this.updateSubscription.unsubscribe();
     }
   }
 
   refreshWaitlist() {
-    this.eventService.getWaitlist().subscribe(
-      waitlist => {
-        this.waitlist = waitlist;
+    // Make an HTTP request to fetch the waitlist
+    this.eventService.getWaitlist(this.eventId).subscribe(
+      (waitlist: string[]) => {
+        this.updateWaitlist(waitlist);
       },
-      error => {
+      (error: any) => {
         console.error('Error fetching waitlist:', error);
-        // TODO: Handle error, e.g., show an error message
+        // Handle error, e.g., show an error message
       }
     );
   }
 
   cancelReservation(name: string) {
-    // Assuming you have an Akita store to manage state
-    this.eventService.cancelReservation(name).subscribe(
-      response => {
+    // Make an HTTP request to cancel the reservation
+    this.eventService.cancelReservation(this.eventId, name).subscribe(
+      (response: any) => {
         console.log('Reservation canceled:', response);
         // Optionally, update the waitlist after successful cancellation
         this.refreshWaitlist();
       },
-      error => {
+      (error: any) => {
         console.error('Cancellation failed:', error);
-        // Handle error, e.g., show an error message
       }
     );
+  }
+
+  private updateWaitlist(newData: string[]) {
+    // Update the waitlist with new data
+    this.waitlist = newData;
   }
 }
