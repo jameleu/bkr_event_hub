@@ -1,7 +1,7 @@
 // event-waitlist.component.ts
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { EventService } from '../event/event.service';
+import { WaitlistService } from './waitlist.service';
 import { Subscription, interval } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,7 +15,7 @@ export class EventWaitlistComponent implements OnInit, OnDestroy {
   private updateSubscription: Subscription | undefined;
   private eventId: string = "";
 
-  constructor(private eventService: EventService,
+  constructor(private waitlistService : WaitlistService,
     private route: ActivatedRoute) {
 
   }
@@ -49,7 +49,7 @@ export class EventWaitlistComponent implements OnInit, OnDestroy {
 
   refreshWaitlist() {
     // Make an HTTP request to fetch the waitlist
-    this.eventService.getWaitlist(this.eventId).subscribe(
+    this.waitlistService.getWaitlist(this.eventId).subscribe(
       (waitlist: string[]) => {
         this.updateWaitlist(waitlist);
       },
@@ -62,7 +62,7 @@ export class EventWaitlistComponent implements OnInit, OnDestroy {
 
   cancelReservation(name: string) {
     // Make an HTTP request to cancel the reservation
-    this.eventService.cancelReservation(this.eventId, name).subscribe(
+    this.waitlistService.cancelReservation(this.eventId, name).subscribe(
       (response: any) => {
         console.log('Reservation canceled:', response);
         // Optionally, update the waitlist after successful cancellation

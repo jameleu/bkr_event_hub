@@ -5,11 +5,11 @@ import { Event } from '../event.model'; // Adjust the import path based on your 
 
 @Component({
   selector: 'app-event-detail-modal',
+  //TODO add link to signup form here later
   template: `
     <div>
       <h4>{{ event.name }}</h4>
       <p>{{ event.description }}</p>
-      <app-event-form-signup></app-event-form-signup>
     </div>
   `,
 })
