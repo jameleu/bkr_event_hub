@@ -11,10 +11,9 @@ import { EventService } from './event/event.service';
 import { EventComponent } from './event/event.component';
 
 @NgModule({
-  declarations: [EventListComponent, EventComponent],
+  declarations: [EventListComponent, EventComponent, AppComponent],
   imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
   providers: [EventService],
   bootstrap: [AppComponent],
-  // schemas: [NO_ERRORS_SCHEMA]
 })
 export class AppModule {}
