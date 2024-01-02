@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes'
+import { DialogService } from 'primeng/dynamicdialog';
 
 import { AppComponent } from './app.component';
 import { EventListComponent } from './event/event-list/event-list.component';
@@ -12,7 +13,7 @@ import { EventComponent } from './event/event.component';
 
 @NgModule({
   declarations: [EventListComponent, EventComponent, AppComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
+  imports: [BrowserModule, DialogService, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
   providers: [EventService],
   bootstrap: [AppComponent],
 })
