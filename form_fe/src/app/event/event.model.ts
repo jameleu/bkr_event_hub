@@ -1,8 +1,8 @@
-// event.model.ts
 export interface Event {
-    id: number;
-    name: string;
-    description: string;
-    dateTime: Date;
-    location: string;
-  }
+  id: number;
+  name: string;
+  description: string;
+  dateTime: Date;
+  duration: number; // minutes
+  location: string;
+}

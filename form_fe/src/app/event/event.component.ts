@@ -14,7 +14,7 @@ import { EventDetailModalComponent } from './event-actions/event-detail-modal.co
   `,
 })
 export class EventComponent {
-  @Input() event: Event = { id: 0, name: '', description: '', dateTime: new Date(), location: ''};
+  @Input() event: Event = { id: 0, name: '', description: '', dateTime: new Date(), location: '', duration: 0};
 
   constructor(private dialog: MatDialog) {}
 
