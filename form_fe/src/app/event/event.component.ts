@@ -1,6 +1,6 @@
 // event.component.ts
 import { Component, Input } from '@angular/core';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 import { Event } from './event.model';
 import { EventDetailModalComponent } from './event-actions/event-detail-modal.component';
