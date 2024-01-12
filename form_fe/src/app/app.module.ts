@@ -1,11 +1,12 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routes } from './app.routes'
-import { DialogService } from 'primeng/dynamicdialog';
 
+import {MatButtonModule} from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AppComponent } from './app.component';
 import { EventListComponent } from './event/event-list/event-list.component';
 import { EventService } from './event/event.service';
@@ -13,7 +14,7 @@ import { EventComponent } from './event/event.component';
 
 @NgModule({
   declarations: [EventListComponent, EventComponent, AppComponent],
-  imports: [BrowserModule, DialogService, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
+  imports: [BrowserModule, MatDialogModule, MatButtonModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
   providers: [EventService],
   bootstrap: [AppComponent],
 })

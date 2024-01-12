@@ -1,34 +1,30 @@
 // event.component.ts
 import { Component, Input } from '@angular/core';
-import { DialogService } from 'primeng/dynamicdialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 import { Event } from './event.model';
 import { EventDetailModalComponent } from './event-actions/event-detail-modal.component';
 
 @Component({
   selector: 'app-event',
   template: `
-    <div (click)="openModal()">
-      <h3>{{ event.name }}</h3>
-      <p>{{ event.description }}</p>
-    </div>
+    <h3>{{ event.name }}</h3>
+    <p>{{ event.description }}</p>
+    <button mat-button (click)="openModal()"> View Details </button>
   `,
 })
 export class EventComponent {
-  @Input() event: Event = { id: 0, name: '', description: '' };
+  @Input() event: Event = { id: 0, name: '', description: '', dateTime: new Date(), location: ''};
 
-
-  constructor(private dialogService: DialogService) {}
+  constructor(private dialog: MatDialog) {}
 
   openModal() {
-    const ref = this.dialogService.open(EventDetailModalComponent, {
-      data: {
-        event: this.event,
-      },
-      header: 'Event Details',
+    const dialogRef = this.dialog.open(EventDetailModalComponent, {
       width: '70%',
+      data: { event: this.event },
     });
 
-    // ref.onHide.subscribe((result) => {
+    // dialogRef.afterClosed().subscribe((result) => {
     // });
   }
 }

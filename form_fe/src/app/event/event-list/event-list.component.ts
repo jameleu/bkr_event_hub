@@ -25,9 +25,20 @@ export class EventListComponent implements OnInit, OnDestroy {
     //   this.events = events;
     // });
     this.events = [
-      { id: 1, name: 'Event 1', description: 'Description for Event 1' },
-      { id: 2, name: 'Event 2', description: 'Description for Event 2' },
-    ]
+      {
+        id: 1,
+        name: 'Event 1',
+        description: 'Description for Event 1',
+        dateTime: new Date('2023-01-01T12:00:00'), // Replace with an actual date and time
+        location: 'Location 1',
+      },
+      {
+        id: 2,
+        name: 'Event 2',
+        description: 'Description for Event 2',
+        dateTime: new Date('2023-02-01T15:30:00'), // Replace with an actual date and time
+        location: 'Location 2',
+      },]
   }
 
   ngOnDestroy(): void {
