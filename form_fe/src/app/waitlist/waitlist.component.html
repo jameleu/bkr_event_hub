@@ -1,5 +1,5 @@
 <!-- event-waitlist.component.html -->
-<div *ngIf="signedUp()">
+<div *ngIf="signedUp(); else elseBlock">
     <div *ngFor="let name of waitlist" class="mat-card">
         <mat-card>
         <p>{{ shouldRedact(name) ? 'Reserved' : name }}</p>
@@ -15,17 +15,15 @@
     </div>
 </div>
 <ng-template #elseBlock>
-    <p> bruh</p>
-    <form class="example-form">
-        <mat-form-field class="example-full-width">
+    <form class="form">
+        <mat-form-field class="name">
         <input matInput placeholder="Your Name" name="name" required>
         </mat-form-field>
     
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="comments">
         <textarea matInput placeholder="Additional Comments" name="comments"></textarea>
         </mat-form-field>
     
         <button mat-raised-button color="primary" (click)="submitForm()">Sign Up</button>
     </form>
 </ng-template> 
-<p> bruh2</p>

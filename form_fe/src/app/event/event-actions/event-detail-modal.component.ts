@@ -39,6 +39,7 @@ export class EventDetailModalComponent {
     this.formattedEndTime = format(endTime, 'hh:mm a');
   }
   goToWaitlist(eventId: number): void {
+    this.dialogRef.close();
     this.router.navigate(['/event-waitlist', eventId]);
   }
   onClose(): void {
