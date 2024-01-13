@@ -27,7 +27,8 @@
 
   .view {
     cursor: pointer;
-    background-color: #ebd8d8;
+    /* background-color: #ebd8d8; */
+    background-color: rgb(255, 205, 155);
     display: inline-block;
   }
   

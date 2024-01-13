@@ -15,10 +15,11 @@ import { format, addMinutes } from 'date-fns';
     <h2 class="event-info"> {{ this.formattedStartTime }} - {{ formattedEndTime }}</h2>
     <h3 class="event-info"> &#64; {{ data.event.location }}</h3>
     <p class="event-description">{{ data.event.description }}</p>
-  </div>
   <button class="waitlist-button" mat-raised-button (click)="goToWaitlist(data.event.id)">
         Join Waitlist
   </button>
+  </div>
+
   <button class="close-button" mat-icon-button (click)="onClose()">
     <mat-icon aria-hidden="false" aria-label="Close dialog" fontIcon="close"></mat-icon>
   </button>

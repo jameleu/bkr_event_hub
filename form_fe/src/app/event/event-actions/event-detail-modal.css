@@ -14,12 +14,15 @@
   }
   .waitlist-button {
     width: 50%;
+    margin: 3% auto;
+    margin-top: 2%;
     text-align: center;
     display: inline-block;
-    background-color: #f0ba87;
+    background-color: rgb(255, 205, 155);
   }
   .close-button {
-    margin-top: 20px;
+    margin-top: 2px;
     text-align: center;
+    
   }
   

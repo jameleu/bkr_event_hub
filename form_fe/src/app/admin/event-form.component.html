@@ -1,32 +1,44 @@
-<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <input matInput placeholder="Name" formControlName="name">
-  </mat-form-field>
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="centered-form">
+  <div class="center-column">
+    <h1 class="title"> Add Event </h1>
+    <mat-form-field>
+      <input matInput placeholder="Event Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Event Description" formControlName="description"></textarea>
+    </mat-form-field>
 
-  <mat-form-field>
-    <textarea matInput placeholder="Description" formControlName="description"></textarea>
-  </mat-form-field>
+    <!-- <mat-form-field>
+      <mat-label>Choose a date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateTime">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+    </mat-form-field> -->
+    
+    <mat-form-field>
+      <mat-label>Start Date</mat-label>
+      <input matInput type="datetime-local" placeholder="Start date" formControlName="dateTime">
+      <mat-hint><b>Date, Time: </b>
+        (MM/DD/YYYY, HH:MM [AM/PM])</mat-hint>
+    </mat-form-field>
 
-  <!-- <mat-form-field>
-    <mat-label>Choose a date</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="dateTime">
-    <mat-hint>MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-  </mat-form-field> -->
-  
+    <div class="slider">
+      <span><b>Duration:</b> 0.5 hrs</span>
+      <mat-slider min="0.5" max="8" step="0.5" showTickMarks discrete [displayWith]="formatLabel" thumbLabel [(ngModel)]="sliderValue">
+        <input matSliderThumb>
+      </mat-slider>
+      <span>8 hours</span>
+    </div>
 
-  <mat-slider min="0.5" max="8" step="0.5" showTickMarks discrete [displayWith]="formatLabel">
-    <input matSliderThumb>
-  </mat-slider>
+    <mat-form-field>
+      <input matInput placeholder="Event Location" formControlName="location">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Location" formControlName="location">
-  </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Leader Name" formControlName="leader">
+    </mat-form-field>
 
-  <mat-form-field>
-    <input matInput placeholder="Leader" formControlName="leader">
-  </mat-form-field>
-
-  <button mat-raised-button color="primary" type="submit">Create Event</button>
+    <button mat-raised-button color="primary" type="submit">Create Event</button>
+  </div>
 </form>

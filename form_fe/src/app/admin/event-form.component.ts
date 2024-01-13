@@ -4,8 +4,6 @@ import { MaterialModule } from '../material.module';
 import { EventService } from '../event/event.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { startOfToday } from 'date-fns';
-import { DateAdapter } from '@angular/material/core';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 
 @Component({
   selector: 'app-event-form',
@@ -15,6 +13,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 export class EventFormComponent {
   eventForm: FormGroup;
   startDate: Date;
+  sliderValue: number;
   
 
   constructor(private fb: FormBuilder, private eventService: EventService) {
@@ -27,13 +26,14 @@ export class EventFormComponent {
       leader: ['', Validators.required],
     });
     this.startDate = startOfToday();
+    this.sliderValue = 0.5;
   }
 
   formatLabel(value: number): string {
-    if (value >= 1000) {
-      return Math.round(value / 1000) + 'k';
-    }
-
+    // if (value >= 1000) {
+    //   return Math.round(value / 1000) + 'k';
+    // }
+    this.sliderValue = value;
     return `${value}`;
   }
 
