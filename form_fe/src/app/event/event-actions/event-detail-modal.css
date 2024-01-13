@@ -1,0 +1,20 @@
+.event-details {
+    text-align: center;
+    outline: 2px solid #333;
+    padding: 20px;
+  }
+  
+  .event-title {
+    text-align: left;
+    margin-bottom: 10px;
+  }
+  
+  .event-info, .event-description {
+    text-align: center;
+  }
+  
+  .close-button {
+    margin-top: 20px;
+    text-align: center;
+  }
+  

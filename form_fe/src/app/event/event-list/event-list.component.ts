@@ -8,7 +8,6 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-event-list',
   template: `
-    <p> LIST </p>
     <div *ngFor="let event of events">
       <app-event [event]="event"></app-event>
     </div>

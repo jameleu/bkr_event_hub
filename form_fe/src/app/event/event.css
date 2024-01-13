@@ -1,0 +1,37 @@
+.event-container {
+    text-align: center;
+    margin: 10%;
+    padding: 30px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+  }
+  
+  .event-name {
+    text-align: left;
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .date {
+    margin-top: 25%;
+    text-align: center;
+    margin-bottom: 2%;
+  }
+  .time {
+    white-space: nowrap;
+    display: inline-block;
+    margin-top: 1%;
+  }
+
+  .view {
+    cursor: pointer;
+    background-color: #ebd8d8;
+    display: inline-block;
+  }
+  
+  .view:hover {
+    color: #555;
+
+  }
