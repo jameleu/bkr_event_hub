@@ -5,4 +5,5 @@ export interface Event {
   dateTime: Date;
   duration: number; // minutes
   location: string;
+  leader: string;
 }

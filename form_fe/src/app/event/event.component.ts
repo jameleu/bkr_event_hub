@@ -19,7 +19,7 @@ import { format, getMinutes, addMinutes } from 'date-fns';
   styleUrls: ['./event.css']
 })
 export class EventComponent {
-  @Input() event: Event = { id: 0, name: '', description: '', dateTime: new Date(), location: '', duration: 0};
+  @Input() event: Event = { id: 0, name: '', description: '', dateTime: new Date(), location: '', duration: 0, leader: ''};
   formattedStartTime: string;
   formattedDate: string;
   formattedEndTime: string;

@@ -1,0 +1,32 @@
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput placeholder="Name" formControlName="name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Description" formControlName="description"></textarea>
+  </mat-form-field>
+
+  <!-- <mat-form-field>
+    <mat-label>Choose a date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="dateTime">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+  </mat-form-field> -->
+  
+
+  <mat-slider min="0.5" max="8" step="0.5" showTickMarks discrete [displayWith]="formatLabel">
+    <input matSliderThumb>
+  </mat-slider>
+
+  <mat-form-field>
+    <input matInput placeholder="Location" formControlName="location">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Leader" formControlName="leader">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit">Create Event</button>
+</form>

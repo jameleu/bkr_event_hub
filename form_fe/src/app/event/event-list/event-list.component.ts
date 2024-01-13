@@ -32,6 +32,7 @@ export class EventListComponent implements OnInit, OnDestroy {
         dateTime: new Date('2023-01-01T12:00:00'), // Replace with an actual date and time
         duration: 120,
         location: 'Location 1',
+        leader: "Bob"
       },
       {
         id: 2,
@@ -40,6 +41,7 @@ export class EventListComponent implements OnInit, OnDestroy {
         dateTime: new Date('2023-02-01T15:30:00'), // Replace with an actual date and time
         duration: 60,
         location: 'Location 2',
+        leader: "Bob"
       },]
   }
 
