@@ -1,14 +1,19 @@
 // event-waitlist.component.ts
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { WaitlistService } from './waitlist.service';
 import { Subscription, interval } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { MaterialModule } from '../material.module';
+import { FormsModule } from '@angular/forms';
+
+const CURR_USER: string = "Bob";
 
 @Component({
   selector: 'app-event-waitlist',
-  templateUrl: './event-waitlist.component.html',
-  styleUrls: ['./event-waitlist.component.css'],
+  templateUrl: './waitlist.component.html',
+  // styleUrls: ['./event-waitlist.component.css'],
 })
 export class EventWaitlistComponent implements OnInit, OnDestroy {
   waitlist: string[] = [];
@@ -17,7 +22,7 @@ export class EventWaitlistComponent implements OnInit, OnDestroy {
 
   constructor(private waitlistService : WaitlistService,
     private route: ActivatedRoute) {
-
+      this.waitlist = ['Alice', 'Charlie', 'David', 'Eva', "Bob"];
   }
 
   ngOnInit(): void {
@@ -47,6 +52,14 @@ export class EventWaitlistComponent implements OnInit, OnDestroy {
     }
   }
 
+  shouldRedact(name: string): boolean {
+    return CURR_USER !== name
+  }
+
+  signedUp(): boolean {
+    return false;
+  }
+
   refreshWaitlist() {
     // Make an HTTP request to fetch the waitlist
     this.waitlistService.getWaitlist(this.eventId).subscribe(
@@ -73,7 +86,7 @@ export class EventWaitlistComponent implements OnInit, OnDestroy {
       }
     );
   }
-
+  submitForm(): void {}
   private updateWaitlist(newData: string[]) {
     // Update the waitlist with new data
     this.waitlist = newData;

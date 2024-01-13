@@ -12,7 +12,12 @@
   .event-info, .event-description {
     text-align: center;
   }
-  
+  .waitlist-button {
+    width: 50%;
+    text-align: center;
+    display: inline-block;
+    background-color: #f0ba87;
+  }
   .close-button {
     margin-top: 20px;
     text-align: center;

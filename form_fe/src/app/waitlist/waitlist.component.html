@@ -1,5 +1,31 @@
-<div *ngFor="let name of waitlist">
-    <p>{{ shouldRedact(name) ? 'Reserved' : name }}</p>
-    <button *ngIf="!shouldRedact(name)" (click)="cancelReservation(name)">Cancel Reservation</button>
-  </div>
-  
+<!-- event-waitlist.component.html -->
+<div *ngIf="signedUp()">
+    <div *ngFor="let name of waitlist" class="mat-card">
+        <mat-card>
+        <p>{{ shouldRedact(name) ? 'Reserved' : name }}</p>
+        <button
+            *ngIf="!shouldRedact(name)"
+            mat-button
+            color="warn"
+            (click)="cancelReservation(name)"
+        >
+            Cancel Reservation
+        </button>
+        </mat-card>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <p> bruh</p>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+        <input matInput placeholder="Your Name" name="name" required>
+        </mat-form-field>
+    
+        <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Additional Comments" name="comments"></textarea>
+        </mat-form-field>
+    
+        <button mat-raised-button color="primary" (click)="submitForm()">Sign Up</button>
+    </form>
+</ng-template> 
+<p> bruh2</p>
