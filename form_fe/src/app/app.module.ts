@@ -15,11 +15,12 @@ import { EventWaitlistComponent } from './waitlist/waitlist.component';
 import { EventFormComponent } from './admin/event-form.component';
 import { EventComponent } from './event/event.component';
 import { routes } from './app.routes'
-
+import { AuthService
+ } from './auth/auth.service';
 @NgModule({
   declarations: [EventListComponent, EventFormComponent, EventWaitlistComponent, EventDetailModalComponent, EventComponent, AppComponent],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule, MaterialModule, CommonModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
-  providers: [EventService],
+  providers: [EventService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,1 +1,11 @@
-<p>auth works!</p>
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="centered-form">
+    <div class="center-column">
+      <h1 class="title"> Add Event </h1>
+      <mat-form-field>
+            <input type="text" name="uniquename" required>
+      </mat-form-field>
+      <mat-error *ngIf="getControl('uniquename')?.hasError('required')">
+        Required value
+      </mat-error>
+    </div>
+</form>

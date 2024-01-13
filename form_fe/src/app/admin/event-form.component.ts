@@ -28,7 +28,9 @@ export class EventFormComponent {
     this.startDate = startOfToday();
     this.sliderValue = 0.5;
   }
-
+  getControl(controlName: string) {
+    return this.eventForm.get(controlName)
+  }
   formatLabel(value: number): string {
     // if (value >= 1000) {
     //   return Math.round(value / 1000) + 'k';

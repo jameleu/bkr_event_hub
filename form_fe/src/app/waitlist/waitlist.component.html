@@ -1,29 +1,44 @@
 <!-- event-waitlist.component.html -->
 <div *ngIf="signedUp(); else elseBlock">
-    <div *ngFor="let name of waitlist" class="mat-card">
-        <mat-card>
-        <p>{{ shouldRedact(name) ? 'Reserved' : name }}</p>
-        <button
-            *ngIf="!shouldRedact(name)"
-            mat-button
-            color="warn"
-            (click)="cancelReservation(name)"
-        >
-            Cancel Reservation
-        </button>
-        </mat-card>
+    <div class="centered-form">
+        <div class="waitlist">
+            <h1 class="title-2"> Attendance and Waitlist </h1>
+            <div *ngFor="let name of waitlist">
+                <mat-card [class.you]="!shouldRedact(name)" class="person-card">
+                <div class="outer">
+                    <p class="person">{{ shouldRedact(name) ? 'Reserved' : name }}</p>
+                    <button
+                        class="cancel"
+                        *ngIf="!shouldRedact(name)"
+                        mat-button
+                        color="warn"
+                        (click)="cancelReservation(name)"
+                    >
+                        Cancel
+                    </button>
+                </div>
+                </mat-card>
+            </div>
+        </div>
     </div>
 </div>
 <ng-template #elseBlock>
-    <form class="form">
-        <mat-form-field class="name">
-        <input matInput placeholder="Your Name" name="name" required>
-        </mat-form-field>
-    
-        <mat-form-field class="comments">
-        <textarea matInput placeholder="Additional Comments" name="comments"></textarea>
-        </mat-form-field>
-    
-        <button mat-raised-button color="primary" (click)="submitForm()">Sign Up</button>
+    <form [formGroup]="s_form" (ngSubmit)="submitForm()" class="centered-form">
+        <div class="center-column">
+            <h1 class="title"> Sign Up! </h1>    
+            <p> <b>Waitlist total:</b> {{ totalWaitlist }} </p>
+            <mat-form-field class="name">
+                <input matInput placeholder="Your Name" formControlName="name" required>
+                <mat-error *ngIf="getControl('name')?.hasError('required')">
+                    Required value
+                </mat-error>
+            </mat-form-field>
+        
+            <mat-form-field class="comments">
+            <textarea matInput placeholder="Additional Comments" name="comments"></textarea>
+            </mat-form-field>
+        
+            <button mat-raised-button color="primary" type="submit">Sign Up</button>
+        </div>
     </form>
 </ng-template> 

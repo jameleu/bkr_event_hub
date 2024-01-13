@@ -22,4 +22,8 @@ export class WaitlistService {
     const body = { name };
     return this.http.post(url, body);
   }
+  getWaitlistTotal(eventId: string): Observable<number> {
+    const url = `${this.apiUrl}/events/${eventId}/waitlist/total/`;
+    return this.http.get<number>(url);
+  }
 }

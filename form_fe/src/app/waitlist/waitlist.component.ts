@@ -6,26 +6,51 @@ import { WaitlistService } from './waitlist.service';
 import { Subscription, interval } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MaterialModule } from '../material.module';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 const CURR_USER: string = "Bob";
 
 @Component({
   selector: 'app-event-waitlist',
   templateUrl: './waitlist.component.html',
+  styleUrls: ['./waitlist.component.css']
   // styleUrls: ['./event-waitlist.component.css'],
 })
 export class EventWaitlistComponent implements OnInit, OnDestroy {
   waitlist: string[] = [];
+  s_form: FormGroup;
+  totalWaitlist: number;
   private updateSubscription: Subscription | undefined;
   private eventId: string = "";
 
-  constructor(private waitlistService : WaitlistService,
+  constructor(private fb: FormBuilder, private waitlistService : WaitlistService,
     private route: ActivatedRoute) {
       this.waitlist = ['Alice', 'Charlie', 'David', 'Eva', "Bob"];
+      this.s_form = this.fb.group({
+          name: ['', Validators.required],
+          description: ['', Validators.required],
+
+      });
+      this.totalWaitlist = 0;
+  }
+  getControl(controlName: string) {
+    return this.s_form.get(controlName);
   }
 
+
   ngOnInit(): void {
+    this.waitlistService.getWaitlistTotal(this.eventId).subscribe(
+      (total: number) => {
+        // Handle the total value, for example, assign it to a component property
+        this.totalWaitlist = total;
+      },
+      (error) => {
+        console.error('Error fetching waitlist total:', error);
+        // Handle error, e.g., show an error message to the user
+      }
+    );
+    //TODO IF STATEMENT TO DO THIS
     // Get the event ID from the route parameters
     this.route.paramMap.subscribe((params : any) => {
       this.eventId = params.get('eventId');
@@ -59,7 +84,6 @@ export class EventWaitlistComponent implements OnInit, OnDestroy {
   signedUp(): boolean {
     return false;
   }
-
   refreshWaitlist() {
     // Make an HTTP request to fetch the waitlist
     this.waitlistService.getWaitlist(this.eventId).subscribe(

@@ -1,6 +1,7 @@
 // login.component.ts
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -12,20 +13,21 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
-      username: '',
-      password: '',
+      name: ['', Validators.required],
     });
   }
-
+  getControl(controlName: string) {
+    return this.loginForm.get(controlName)
+  }
   onSubmit() {
     const credentials = this.loginForm.value;
     this.authService.login(credentials).subscribe(
-      (response) => {
-        // Handle successful login
+      (response: any) => {
+        // TODO
         console.log(response);
       },
-      (error) => {
-        // Handle login error
+      (error: any) => {
+        // TODO
         console.error(error);
       }
     );
