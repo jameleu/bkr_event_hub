@@ -1,11 +1,12 @@
-<form [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="centered-form">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="centered-form">
     <div class="center-column">
-      <h1 class="title"> Add Event </h1>
+      <h1 class="title"> UMich Email Verification Login </h1>
       <mat-form-field>
-            <input type="text" name="uniquename" required>
-      </mat-form-field>
-      <mat-error *ngIf="getControl('uniquename')?.hasError('required')">
-        Required value
-      </mat-error>
+            <input matInput placeholder="Uniqname" formControlName="uniqname" required>
+            <mat-error class="error" *ngIf="getControl('uniqname')?.hasError('required')">
+                Required value
+            </mat-error>
+        </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Login</button>
     </div>
 </form>
