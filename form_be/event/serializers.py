@@ -16,3 +16,8 @@ class WaitlistSerializer(serializers.ModelSerializer):
     class Meta:
         model = Waitlist
         fields = '__all__'
+
+class BufferListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BufferList
+        fields = '__all__'

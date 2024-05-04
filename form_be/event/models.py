@@ -21,3 +21,7 @@ class Attendance(models.Model):
     attended = models.BooleanField(default=False)
     timestamp = models.DateTimeField()
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    
+class BufferList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    place = models.IntegerField()
