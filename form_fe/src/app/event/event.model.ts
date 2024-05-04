@@ -6,4 +6,5 @@ export interface Event {
   duration: number; // minutes
   location: string;
   leader: string;
+  imageUrl: string;
 }

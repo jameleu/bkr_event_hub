@@ -28,11 +28,12 @@ export class EventListComponent implements OnInit, OnDestroy {
       {
         id: 1,
         name: 'Event 1',
-        description: 'Description for Event 1',
+        description: 'Description for Event 1\yap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yap',
         dateTime: new Date('2023-01-01T12:00:00'), // Replace with an actual date and time
         duration: 120,
         location: 'Location 1',
-        leader: "Bob"
+        leader: "Bob",
+        imageUrl: "assets/images/default_img_6.png"
       },
       {
         id: 2,
@@ -41,7 +42,8 @@ export class EventListComponent implements OnInit, OnDestroy {
         dateTime: new Date('2023-02-01T15:30:00'), // Replace with an actual date and time
         duration: 60,
         location: 'Location 2',
-        leader: "Bob"
+        leader: "Bob",
+        imageUrl: "assets/images/default_img_4.png"  // in django, will randomly assign default img if not given
       },]
   }
 

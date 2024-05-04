@@ -9,20 +9,26 @@ import { format, addMinutes } from 'date-fns';
 @Component({
   selector: 'app-event-detail-modal',
   template: `
+  <div class="main">
+  <button class="close-button" mat-icon-button (click)="onClose()">
+  <mat-icon aria-hidden="false" aria-label="Close dialog" fontIcon="close"></mat-icon>
+  </button>
   <div class="event-details">
     <h1 class="event-title">{{ data.event.name }}</h1>
-    <h2 class="event-info"> When: {{ this.formattedDate }}</h2>
-    <h2 class="event-info"> {{ this.formattedStartTime }} - {{ formattedEndTime }}</h2>
-    <h3 class="event-info"> &#64; {{ data.event.location }}</h3>
-    <p class="event-description">{{ data.event.description }}</p>
+    <div class="when">
+      <h2 class="event-info"> When: {{ this.formattedDate }}</h2>
+      <h2 class="event-info"> {{ this.formattedStartTime }} - {{ formattedEndTime }}</h2>
+    </div>
+    <div class="what_where">
+      <h3 class="event-info"> &#64; {{ data.event.location }}</h3>
+      <p class="event-description">{{ data.event.description }}</p>
+    </div>
   <button class="waitlist-button" mat-raised-button (click)="goToWaitlist(data.event.id)">
         Join Waitlist
   </button>
   </div>
-
-  <button class="close-button" mat-icon-button (click)="onClose()">
-    <mat-icon aria-hidden="false" aria-label="Close dialog" fontIcon="close"></mat-icon>
-  </button>
+  <img class="banner" [src]="data.event.imageUrl" alt="baking_banner">
+  </div>
   `,
   styleUrls: ['./event-detail-modal.css']
 })

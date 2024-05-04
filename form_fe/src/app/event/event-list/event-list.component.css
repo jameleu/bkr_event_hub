@@ -1,7 +1,8 @@
 :host {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    width: 80vw;
+    margin: auto;
     height: 100vh;
   }

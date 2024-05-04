@@ -11,24 +11,28 @@ import { format, getMinutes, addMinutes } from 'date-fns';
   template: `
   <div class="event-container">
     <h3 class="event-name">{{ event.name }}</h3>
-    <p class="date">{{ this.formattedDate }}</p>
-    <p class="time">{{ this.formattedStartTime }} - {{ this.formattedEndTime }}</p>
+    <div class="dt">
+      <p class="date">{{ this.formattedDate }}</p>
+      <p class="time">{{ this.formattedStartTime }} - {{ this.formattedEndTime }}</p>
+    </div>
     <button mat-button (click)="openModal()" class="view"> View Details </button>
+    <img class="banner" [src]="event.imageUrl" alt="baking_banner">
   </div>
   `,
   styleUrls: ['./event.css']
 })
 export class EventComponent {
-  @Input() event: Event = { id: 0, name: '', description: '', dateTime: new Date(), location: '', duration: 0, leader: ''};
+  @Input() event: Event = { id: 0, name: '', description: '', dateTime: new Date(), location: '', duration: 0, leader: '', imageUrl: ''};
   formattedStartTime: string;
   formattedDate: string;
   formattedEndTime: string;
+  defaultImgUrl: string;
 
   constructor(private dialog: MatDialog) {
     this.formattedStartTime = "";
     this.formattedDate = "";
     this.formattedEndTime = "";
-
+    this.defaultImgUrl = this.event.imageUrl;
   }
 
   ngOnInit() {
@@ -50,7 +54,6 @@ export class EventComponent {
 
   openModal() {
     const dialogRef = this.dialog.open(EventDetailModalComponent, {
-      width: '70%',
       data: { event: this.event },
     });
 
