@@ -24,6 +24,7 @@ export class EventListComponent implements OnInit, OnDestroy {
     // this.subscription = this.eventService.getEvents().subscribe((events) => {
     //   this.events = events;
     // });
+
     this.events = [
       {
         id: 1,

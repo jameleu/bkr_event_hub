@@ -33,9 +33,16 @@
                     Required value
                 </mat-error>
             </mat-form-field>
+            <mat-radio-group>
+                <mat-radio-button [value]="true">Yes</mat-radio-button>
+                <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+            <mat-error *ngIf="getControl('desire')?.hasError('required')">
+                Required value
+            </mat-error>
         
             <mat-form-field class="comments">
-            <textarea matInput placeholder="Additional Comments" name="comments"></textarea>
+            <textarea matInput placeholder="Additional Comments" name="comment"></textarea>
             </mat-form-field>
         
             <button mat-raised-button color="primary" type="submit">Sign Up</button>

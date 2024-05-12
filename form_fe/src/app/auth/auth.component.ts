@@ -1,11 +1,12 @@
 // login.component.ts
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OtpComponent } from './otp.component';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -14,29 +15,74 @@ import { OtpComponent } from './otp.component';
 })
 export class LoginComponent {
   loginForm: FormGroup;
-
-  constructor(private fb: FormBuilder, private authService: AuthService, private dialog: MatDialog) {
+  user_id: number;
+  first_time: boolean;
+  
+  constructor(private fb: FormBuilder, private authService: AuthService, private dialog: MatDialog, private http: HttpClient) {
     this.loginForm = this.fb.group({
       uniqname: ['', Validators.required],
+      fName: ['', Validators.required],
+      lName: ['', Validators.required],
     });
+    this.user_id = -100;
+    this.first_time = this.user_id === -1;    
   }
   getControl(controlName: string) {
     return this.loginForm.get(controlName)
   }
-  onSubmit() {
-    const credentials = this.loginForm.value;  //TODO store this somehow in session or rest api
-    this.openOtpModal();
-    this.authService.login(credentials).subscribe(
-      (response: any) => {
-        // TODO
-        this.openOtpModal();
-        console.log(response);
-      },
-      (error: any) => {
-        // TODO
-        console.error(error);
+  onSubmit(form: NgForm) {
+    if (this.loginForm.get('uniqname')?.value === '') {
+      console.log("missing uniqname!")
+      return;
+    }
+    // const credentials = this.loginForm.value;  //TODO store this somehow in session or rest api
+    const formData = {
+      user : this.loginForm.get('uniqname')?.value
+    };
+    console.log(formData)
+    if(!this.first_time) {
+      this.http.get(`http://127.0.0.1:8000/v1/users/get_id/${formData.user}/`).subscribe(
+        (response) => {
+          console.log("get user id api log: ", response);
+          this.user_id = (response as any)['id'];
+          this.first_time = this.user_id === -1;
+          if(!this.first_time) {
+            this.openOtpModal();
+          }
+        },
+        (error) => {
+          console.error("get user id api error: ", error)
+        }
+      );
+    }
+    else {
+      if(!this.loginForm.valid) {
+        console.log("please fill out whole form!");
+        return;
       }
-    );
+      const new_data = {
+        user: formData.user,
+        first: this.loginForm.get('fName')?.value,
+        last: this.loginForm.get('lName')?.value,
+      };
+      console.log(new_data);
+      console.log("creating new user!");
+      // this.createUser(new_data);
+      this.openOtpModal();
+      // this.loginForm.reset();
+    }
+    // this.openOtpModal();
+    // this.authService.login(credentials).subscribe(
+    //   (response: any) => {
+    //     // TODO
+    //     this.openOtpModal();
+    //     console.log(response);
+    //   },
+    //   (error: any) => {
+    //     // TODO
+    //     console.error(error);
+    //   }
+    // );
   }
   openOtpModal() {
     // Open the OTP modal
@@ -48,5 +94,15 @@ export class LoginComponent {
     // dialogRef.afterClosed().subscribe(result => {
     //   console.log('OTP modal closed:', result);
     // });
+  }
+  createUser(formData: any) {
+    this.http.post("http://127.0.0.1:8000/v1/users/", formData).subscribe(
+      (response) => {
+        console.log("User created successfully: ", response);
+      },
+      (error) => {
+        console.error("Error creating user: ", error);
+      }
+    );
   }
 }

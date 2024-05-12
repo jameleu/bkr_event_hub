@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { MaterialModule } from './material.module'
 import { AppComponent } from './app.component';
@@ -22,7 +23,7 @@ import { AuthService
 
 @NgModule({
   declarations: [LoginComponent, OtpComponent, EventListComponent, EventFormComponent, EventWaitlistComponent, EventDetailModalComponent, EventComponent, AppComponent],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, MaterialModule, CommonModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
+  imports: [BrowserModule, FormsModule, MatRadioModule, ReactiveFormsModule, MaterialModule, CommonModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
   providers: [EventService, AuthService],
   bootstrap: [AppComponent],
 })

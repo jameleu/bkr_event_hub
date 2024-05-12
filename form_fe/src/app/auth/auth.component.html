@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="centered-form">
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" class="centered-form">
     <div class="center-column">
       <h1 class="title"> UMich Email Verification Login </h1>
       <mat-form-field>
@@ -6,6 +6,20 @@
             <mat-error class="error" *ngIf="getControl('uniqname')?.hasError('required')">
                 Required value
             </mat-error>
+        </mat-form-field>
+        <p *ngIf="first_time" class="msg"> First time? Please input your first and last name! </p>
+        <mat-form-field *ngIf="first_time">
+        <input matInput placeholder="First Name" formControlName="fName" required>
+        <mat-error class="error" *ngIf="getControl('fName')?.hasError('required')">
+            Required value
+        </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="first_time">
+        <input matInput placeholder="Last Name" formControlName="lName" required>
+        <mat-error class="error" *ngIf="getControl('lName')?.hasError('required')">
+            Required value
+        </mat-error>
         </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Login</button>
     </div>

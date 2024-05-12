@@ -7,7 +7,9 @@ import { Subscription, interval } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatRadioModule } from '@angular/material/radio';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 const CURR_USER: string = "Bob";
 
@@ -25,12 +27,12 @@ export class EventWaitlistComponent implements OnInit, OnDestroy {
   private eventId: string = "";
 
   constructor(private fb: FormBuilder, private waitlistService : WaitlistService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute, private http: HttpClient) {
       this.waitlist = ['Alice', 'Charlie', 'David', 'Eva', "Bob"];
       this.s_form = this.fb.group({
-          name: ['', Validators.required],
-          description: ['', Validators.required],
-
+          name: ['', Validators.required], // 'name' field with required validator
+          desire: [null, Validators.required],
+          comment: [''], // comment field
       });
       this.totalWaitlist = 0;
   }
@@ -110,7 +112,25 @@ export class EventWaitlistComponent implements OnInit, OnDestroy {
       }
     );
   }
-  submitForm(): void {}
+  submitForm(): void {
+    // s_form is used to keep track of form validation/data
+    const formData = {
+      // place : this.s_form.get('place')?.value,
+      desire : this.s_form.get('desire')?.value, 
+      comment : this.s_form.get('comment')?.value,
+      user : this.s_form.get('user')?.value,
+    };
+    // TODO: change api
+    this.http.post("http://127.0.0.1:8000/v1/bufferlist/", formData).subscribe(
+      (response) => {
+        console.log("api log: ", response);
+        this.s_form.reset();
+      },
+      (error) => {
+        console.error("api error: ", error)
+      }
+    );
+  }
   private updateWaitlist(newData: string[]) {
     // Update the waitlist with new data
     this.waitlist = newData;

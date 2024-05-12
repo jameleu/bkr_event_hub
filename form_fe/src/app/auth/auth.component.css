@@ -11,6 +11,15 @@
     font-size: 2.4vw;
     font-weight: 500;
   }
+  .msg {
+    padding: 0;
+    margin: -1.2vh auto;
+    font-size: 1.5vw;
+    padding-bottom: 2%;
+
+
+
+  }
   .center-column {
     padding: 4% 12% 2% 11%;
     display: flex;
