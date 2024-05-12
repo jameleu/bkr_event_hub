@@ -19,9 +19,13 @@ class Waitlist(models.Model):
 class Attendance(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     attended = models.BooleanField(default=False)
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(auto_now_add=True)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     
 class BufferList(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    place = models.IntegerField()
+    desire = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    comment = models.TextField(blank=True, null=True)
+    
+    

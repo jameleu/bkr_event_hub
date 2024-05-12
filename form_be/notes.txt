@@ -1,0 +1,44 @@
+need to install postgresql on wsl and windows (gui)
+ACTUALLY, WINDOWS JUST DOES NOT WORK WITH WSL. GET WSL UBUNTU postgres ver
+
+wsl:
+sudo apt install postgresql
+
+must create new user with postgresql to log in with django (can't use default postgres in wsl)
+
+grant user privledges 
+GRANT ALL PRIVILEGES ON DATABASE form_db_1 TO jameleu;
+
+create db
+CREATE DATABASE form_db_1;
+
+see db's
+\l
+
+
+need django cors to use django as rest
+pip install django-cors-headers
+INSTALLED_APPS = [
+    ...
+    'corsheaders',
+    ...
+]
+
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    ...
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4200',  # Add your Angular application URL
+]
+
+
+
+
+Notes on Django generic rest api:
+generics.RetrieveUpdateDeleteDestroyApiView
+ creates many different endpoints within one url by 
+ allowing you to specify request type like put for update, etc
+get, put (full update), patch (partial update), delete, post
+

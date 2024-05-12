@@ -1,7 +1,7 @@
 from django.db import models
 
 class User(models.Model):
-    email = models.EmailField(unique=True)
+    username = models.CharField(max_length=150, unique=True, db_index=True)
     first = models.CharField(max_length=255)
     last = models.CharField(max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)

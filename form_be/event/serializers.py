@@ -1,6 +1,6 @@
 # events/serializers.py
 from rest_framework import serializers
-from .models import Event, Attendance, Waitlist
+from .models import Event, Attendance, Waitlist, BufferList
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:

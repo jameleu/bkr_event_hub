@@ -2,7 +2,7 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from .models import Event, Attendance, Waitlist, BufferList
-from .serializers import EventSerializer, AttendanceSerializer, WaitlistSerializer
+from .serializers import EventSerializer, AttendanceSerializer, WaitlistSerializer, BufferListSerializer
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.db.models import F, Sum
@@ -184,10 +184,15 @@ class WaitlistDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
-class BufferListDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+
+class BufferlistListAPIView(generics.ListCreateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = BufferList.objects.all()
-    serializer_class = BuferlistSerializer
+    serializer_class = BufferListSerializer
+class BufferlistDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsOwnerOrReadOnly]
+    queryset = BufferList.objects.all()
+    serializer_class = BufferListSerializer
     lookup_field = 'user__student_email'  # Assuming 'user' is a ForeignKey in the Waitlist model
 
     def get_object(self):

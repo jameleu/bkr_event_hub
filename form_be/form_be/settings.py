@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'event',
     'membership',
-    'user'
+    'user',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'form_be.urls'
@@ -80,10 +82,10 @@ WSGI_APPLICATION = 'form_be.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'form_db',
-        'USER': 'bkr',
-        'PASSWORD': 'p@ss1!$#@',
-        'HOST': 'localhost',
+        'NAME': 'form_db_1',
+        'USER': 'jameleu',
+        'PASSWORD': 'test1234!',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
@@ -105,6 +107,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:4200',  # Add your Angular application URL
 ]
 
 

@@ -1,6 +1,7 @@
 # users/views.py
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 from .models import User, Admin
 from .serializers import UserSerializer, AdminSerializer
 
@@ -35,7 +36,20 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         instance = self.get_object()
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
+
+@api_view(['GET'])
+def get_user(request, user):
+    print(user)
+    try:
+        user = User.objects.get(username=user)
+        return Response({'id': user.id}, status=status.HTTP_200_OK)
+    except User.DoesNotExist:
+        print("yessir")
+        return Response({'id': -1}, status=status.HTTP_200_OK)
+    except:
+        print("gg's my guy")
+        return Response({'id': -1}, status=status.HTTP_400_BAD_REQUEST)
+   
 class AdminListAPIView(generics.ListCreateAPIView):
     queryset = Admin.objects.all()
     serializer_class = AdminSerializer
