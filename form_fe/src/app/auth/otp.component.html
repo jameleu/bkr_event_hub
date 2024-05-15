@@ -1,6 +1,6 @@
-<div>
+<div class="outer">
     <p class="dir"> Please check your email for a one time password (6-digit, numbers only) </p>
-    <div class="outer">
+    <div>
         <div class="otp-input-container">
             <ng-container *ngFor="let control of otpControls; let i = index">
             <mat-form-field appearance="outline" class="otp-input-field">
@@ -12,13 +12,13 @@
                 [formControl]="control"
                 (input)="onInput(i)"
                 (focus)="onFocus(i)"
-                [class.active]="i === activeInputIndex"
+                class="otp-input"
                 >
                 <mat-error *ngIf="control.hasError('required')" class="error">!
                 </mat-error>
             </mat-form-field>
             </ng-container>
         </div>
-        <button mat-raised-button class="submit" color="primary" (click)="onSubmit()">Submit</button>
     </div>
+    <button mat-raised-button class="submit" color="primary" (click)="onSubmit()">Submit</button>
 </div>

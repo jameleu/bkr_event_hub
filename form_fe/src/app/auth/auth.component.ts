@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthService } from './auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OtpComponent } from './otp.component';
 import { HttpClient } from '@angular/common/http';
@@ -18,7 +17,7 @@ export class LoginComponent {
   user_id: number;
   first_time: boolean;
   
-  constructor(private fb: FormBuilder, private authService: AuthService, private dialog: MatDialog, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient) {
     this.loginForm = this.fb.group({
       uniqname: ['', Validators.required],
       fName: ['', Validators.required],
@@ -40,7 +39,7 @@ export class LoginComponent {
       user : this.loginForm.get('uniqname')?.value
     };
     console.log(formData)
-    if(!this.first_time) {
+    if(!this.first_time) {  // default is False; so is either unconfirmed/returning
       this.http.get(`http://127.0.0.1:8000/v1/users/get_id/${formData.user}/`).subscribe(
         (response) => {
           console.log("get user id api log: ", response);
@@ -49,6 +48,7 @@ export class LoginComponent {
           if(!this.first_time) {
             this.openOtpModal();
           }
+          //otherwise, request for new info to make account (see template)
         },
         (error) => {
           console.error("get user id api error: ", error)
@@ -61,13 +61,13 @@ export class LoginComponent {
         return;
       }
       const new_data = {
-        user: formData.user,
+        username: formData.user,
         first: this.loginForm.get('fName')?.value,
         last: this.loginForm.get('lName')?.value,
       };
       console.log(new_data);
       console.log("creating new user!");
-      // this.createUser(new_data);
+      this.createUser(new_data);
       this.openOtpModal();
       // this.loginForm.reset();
     }
@@ -87,8 +87,7 @@ export class LoginComponent {
   openOtpModal() {
     // Open the OTP modal
     const dialogRef = this.dialog.open(OtpComponent, {
-      width: '400px', // Adjust the width as needed
-      data: {} // You can pass data to your OTP modal if needed
+      data: {'user' : this.user_id}
     });
 
     // dialogRef.afterClosed().subscribe(result => {
@@ -96,6 +95,7 @@ export class LoginComponent {
     // });
   }
   createUser(formData: any) {
+    console.log(formData);
     this.http.post("http://127.0.0.1:8000/v1/users/", formData).subscribe(
       (response) => {
         console.log("User created successfully: ", response);
@@ -104,5 +104,10 @@ export class LoginComponent {
         console.error("Error creating user: ", error);
       }
     );
+  }
+  resetForm() {
+    // window.location.reload();
+    this.first_time = false;
+    this.loginForm.reset();
   }
 }

@@ -1,7 +1,8 @@
 // otp-input.component.ts
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { MaterialModule } from '../material.module';
+import { OtpService } from './otp.service';
 
 @Component({
   selector: 'app-otp-input',
@@ -9,11 +10,14 @@ import { MaterialModule } from '../material.module';
   styleUrls: ['./otp.component.css'],
 })
 export class OtpComponent {
+  @Input() user:any; // accept data packaged in object from upper components
   otpControls: FormControl[] = Array(6).fill('').map(() => new FormControl('', [Validators.required, Validators.pattern(/^[0-9]*$/)]));
   activeInputIndex: number = 0;
 
   @Output() otpChange = new EventEmitter<string>();
+  constructor(private otp_s: OtpService, ) {
 
+  }
   onInput(index: number) {
     const inputValue = this.otpControls[index].value;
     this.otpChange.emit(this.otpControls.map(control => control.value).join(''));
@@ -32,5 +36,8 @@ export class OtpComponent {
   }
   onSubmit(): void {
     console.log('Submitting OTP:', this.otpControls.map(control => control.value).join(''));
+    if(true) {
+      this.otp_s.login(this.user);
+    }
   }
 }

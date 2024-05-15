@@ -2,11 +2,13 @@
     <div class="center-column">
       <h1 class="title"> UMich Email Verification Login </h1>
       <mat-form-field>
-            <input matInput placeholder="Uniqname" formControlName="uniqname" required>
+            <input matInput placeholder="Uniqname" formControlName="uniqname" [readonly]="first_time" required>
             <mat-error class="error" *ngIf="getControl('uniqname')?.hasError('required')">
                 Required value
             </mat-error>
         </mat-form-field>
+        <button *ngIf="first_time" mat-raised-button color="primary" class="refresh" (click)="resetForm()">Wrong uniquname? Click here to re-input!</button>
+
         <p *ngIf="first_time" class="msg"> First time? Please input your first and last name! </p>
         <mat-form-field *ngIf="first_time">
         <input matInput placeholder="First Name" formControlName="fName" required>

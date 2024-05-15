@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, Renderer2  } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { EventService } from '../event/event.service';
@@ -16,17 +16,21 @@ export class EventFormComponent {
   sliderValue: number;
   
 
-  constructor(private fb: FormBuilder, private eventService: EventService) {
+  constructor(private fb: FormBuilder, private eventService: EventService, private elementRef: ElementRef, private renderer: Renderer2) {
     this.eventForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      dateTime: [null, Validators.required],
+      date: [null, Validators.required],
+      time: [null, Validators.required],
       duration: [1, Validators.required],
       location: ['', Validators.required],
       leader: ['', Validators.required],
     });
     this.startDate = startOfToday();
     this.sliderValue = 0.5;
+  }
+  ngOnInit(): void {
+    this.setFocusOnFirstInput();
   }
   getControl(controlName: string) {
     return this.eventForm.get(controlName)
@@ -38,7 +42,12 @@ export class EventFormComponent {
     this.sliderValue = value;
     return `${value}`;
   }
-
+  private setFocusOnFirstInput(): void {
+    const firstInput: HTMLElement = this.elementRef.nativeElement.querySelector('input');
+    if (firstInput) {
+      this.renderer.selectRootElement(firstInput).focus();
+    }
+  }
   onSubmit(): void {
     if (this.eventForm.valid) {
       this.eventService.createEvent(this.eventForm.value);

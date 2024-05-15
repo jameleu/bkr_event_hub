@@ -7,6 +7,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 
+import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+
+import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 import { MaterialModule } from './material.module'
 import { AppComponent } from './app.component';
 import { EventListComponent } from './event/event-list/event-list.component';
@@ -18,13 +26,11 @@ import { EventComponent } from './event/event.component';
 import { LoginComponent } from './auth/auth.component';
 import { OtpComponent } from './auth/otp.component';
 import { routes } from './app.routes'
-import { AuthService
- } from './auth/auth.service';
 
 @NgModule({
   declarations: [LoginComponent, OtpComponent, EventListComponent, EventFormComponent, EventWaitlistComponent, EventDetailModalComponent, EventComponent, AppComponent],
-  imports: [BrowserModule, FormsModule, MatRadioModule, ReactiveFormsModule, MaterialModule, CommonModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
-  providers: [EventService, AuthService],
+  imports: [BrowserModule, NgxMatTimepickerModule, MatSelectModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, FormsModule, MatRadioModule, ReactiveFormsModule, MaterialModule, CommonModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
+  providers: [EventService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class OtpService {
   apiUrl = 'http://TODO';
 
   constructor(private http: HttpClient) {}
 
-  login(credentials: { username: string; password: string }) {
+  login(credentials: { username: string }) {
     return this.http.post(`${this.apiUrl}/auth/`, credentials);
   }
 

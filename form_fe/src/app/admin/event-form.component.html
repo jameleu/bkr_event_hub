@@ -14,24 +14,41 @@
         Required value
       </mat-error>
     </mat-form-field>
-
-    <!-- <mat-form-field>
-      <mat-label>Choose a date</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dateTime">
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-    </mat-form-field> -->
-    
     <mat-form-field>
-      <mat-label>Start Date</mat-label>
+      <!-- input linked to given picker -->
+      <input matInput [matDatepicker]="this_picker" formControlName="date" placeholder="Choose a date">
+      <!-- calendar image linked to given picker: -->
+      <mat-datepicker-toggle matSuffix [for]="this_picker"></mat-datepicker-toggle>
+      <!-- name picker here:  -->
+      <mat-datepicker #this_picker></mat-datepicker>
+      <mat-error *ngIf="getControl('date')?.hasError('required')">
+        Required value
+      </mat-error>
+    </mat-form-field>
+    
+    <!-- sp_field->(input form,toggle,ID) -->
+    <mat-form-field>
+
+      <input matInput [ngxMatTimepicker]="time_picker" formControlName="time" placeholder="Choose a time">
+      <ngx-mat-timepicker-toggle class="time_picker" [for]="time_picker"></ngx-mat-timepicker-toggle>
+      <ngx-mat-timepicker [minutesGap]="5" [enableKeyboardInput]="true" #time_picker></ngx-mat-timepicker>
+      
+      <mat-error *ngIf="getControl('time')?.hasError('required')">
+        Required value
+      </mat-error>
+    </mat-form-field>
+
+      
+    
+    <!-- <mat-form-field> -->
+      <!-- <mat-label>Start Date</mat-label>
       <input matInput type="datetime-local" placeholder="Start date" formControlName="dateTime">
       <mat-error *ngIf="getControl('dateTime')?.hasError('required')">
         Required value
       </mat-error>
       <mat-hint><b>Date, Time: </b>
         (MM/DD/YYYY, HH:MM [AM/PM])</mat-hint>
-    </mat-form-field>
+    </mat-form-field> -->
 
     <div class="slider">
       <span><b>Duration:</b> 0.5 hrs</span>
