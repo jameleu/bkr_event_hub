@@ -42,3 +42,16 @@ generics.RetrieveUpdateDeleteDestroyApiView
  allowing you to specify request type like put for update, etc
 get, put (full update), patch (partial update), delete, post
 
+
+
+
+angular form field component layout:
+sp_field->
+    (input form,
+    toggle,
+    ID)
+-<sp_field
+    Must connect each (sp_field, input form, toggle) to the ID
+
+********must have validator in .ts if give formControlName in html
+
