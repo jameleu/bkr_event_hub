@@ -3,9 +3,13 @@
       <h1 class="title"> UMich Email Verification Login </h1>
       <mat-form-field>
             <input matInput placeholder="Uniqname" formControlName="uniqname" [readonly]="first_time" required>
-            <mat-error class="error" *ngIf="getControl('uniqname')?.hasError('required')">
+            <mat-error *ngIf="getControl('uniqname')?.hasError('required')">
                 Required value
             </mat-error>
+            <mat-error class="error" *ngIf="loginForm.get('uniqname')?.hasError('onlyLetters') && !getControl('uniqname')?.hasError('required')">
+                Please use only letters!
+            </mat-error>
+
         </mat-form-field>
         <button *ngIf="first_time" mat-raised-button color="primary" class="refresh" (click)="resetForm()">Wrong uniquname? Click here to re-input!</button>
 
@@ -15,6 +19,10 @@
         <mat-error class="error" *ngIf="getControl('fName')?.hasError('required')">
             Required value
         </mat-error>
+        <mat-error class="error" *ngIf="loginForm.get('fName')?.hasError('onlyLetters') && !getControl('fName')?.hasError('required')">
+            Please use only letters!
+        </mat-error>
+
         </mat-form-field>
 
         <mat-form-field *ngIf="first_time">
@@ -22,6 +30,10 @@
         <mat-error class="error" *ngIf="getControl('lName')?.hasError('required')">
             Required value
         </mat-error>
+        <mat-error class="error" *ngIf="loginForm.get('lName')?.hasError('onlyLetters') && !getControl('lName')?.hasError('required')">
+            Please use only letters!
+        </mat-error>
+
         </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Login</button>
     </div>

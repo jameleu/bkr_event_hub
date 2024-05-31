@@ -1,0 +1,1 @@
+    export const color = 'rgb(255, 205, 155)';

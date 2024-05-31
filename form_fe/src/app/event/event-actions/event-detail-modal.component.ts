@@ -40,10 +40,9 @@ export class EventDetailModalComponent {
     public dialogRef: MatDialogRef<EventDetailModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { event: Event }, private router: Router
   ) {
-    this.formattedDate = format(data.event.dateTime, 'EEEE, MMMM do, yyyy')
-    this.formattedStartTime = format(data.event.dateTime, 'hh:mm a');
-    const endTime = addMinutes(data.event.dateTime, data.event.duration);
-    this.formattedEndTime = format(endTime, 'hh:mm a');
+    this.formattedDate = format(data.event.start_time, 'EEEE, MMMM do, yyyy')
+    this.formattedStartTime = format(data.event.start_time, 'h:mm a');
+    this.formattedEndTime = format(data.event.end_time, 'h:mm a');
   }
   goToWaitlist(eventId: number): void {
     this.dialogRef.close();

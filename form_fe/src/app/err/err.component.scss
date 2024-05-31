@@ -1,0 +1,25 @@
+p {
+    font-family: Arial, sans-serif;
+    color: grey;
+    text-align: center;
+    font-size: 3vw;
+    line-height: normal;
+    margin: 4vh auto;
+}
+.space_1 {
+    height: 10vh;
+}
+.space_2 {
+    height: 32vh;
+}
+.go_back {
+    background-color: rgb(255, 205, 155);
+    margin: 2vh auto;
+    margin-top: 10vh;
+    text-align: center;
+    display: block;
+}
+.go_back a {
+    text-decoration: none;
+    color: black;
+}

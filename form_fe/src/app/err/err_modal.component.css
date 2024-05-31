@@ -1,0 +1,24 @@
+.msg {
+    font-size: 2vw;
+    text-align: center;
+    margin: 2vh auto;
+    width: 80%;
+    line-height: 120%;
+}
+.err {
+    color: red;
+    font-size: 5vw;
+    margin: 4vh auto;
+    margin-top: 5vh;
+    text-align: center;
+}
+.close-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 2%;
+    }
+      
+.center {
+    position: relative;
+}

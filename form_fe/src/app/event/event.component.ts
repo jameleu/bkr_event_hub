@@ -22,7 +22,7 @@ import { format, getMinutes, addMinutes } from 'date-fns';
   styleUrls: ['./event.css']
 })
 export class EventComponent {
-  @Input() event: Event = { id: 0, name: '', description: '', dateTime: new Date(), location: '', duration: 0, leader: '', imageUrl: ''};
+  @Input() event: Event = { id: 0, name: '', description: '', start_time: new Date(), cat : 0, cap: 12, location: '', end_time: new Date(), leader: '', imageUrl: ''};
   formattedStartTime: string;
   formattedDate: string;
   formattedEndTime: string;
@@ -36,18 +36,19 @@ export class EventComponent {
   }
 
   ngOnInit() {
-    this.formattedDate = format(this.event.dateTime, 'MM/dd/yy')
-    const startMinutes = getMinutes(this.event.dateTime); 
-    const endTime = addMinutes(this.event.dateTime, this.event.duration);
-    const minutes = getMinutes(endTime); 
-    const startTimePeriod = format(this.event.dateTime, 'a');
-    const endTimePeriod = format(endTime, 'a');
+    this.formattedDate = format(this.event.start_time, 'MM/dd/yy')
+    const startMinutes = getMinutes(this.event.start_time); 
+    const endTime = this.event.end_time;
+    const minutes = getMinutes(endTime); // end time minutes 
+    const startTimePeriod = format(this.event.start_time, 'a');
+    const endTimePeriod = format(this.event.end_time, 'a')
     if(startTimePeriod === endTimePeriod) {
-      this.formattedStartTime = startMinutes !== 0 ? format(this.event.dateTime, 'h:mm') : format(this.event.dateTime, 'h');
+      // exclude 00 if it is 00; put AM or PM if the start/end AM or PM are different
+      this.formattedStartTime = startMinutes !== 0 ? format(this.event.start_time, 'h:mm') : format(this.event.start_time, 'h');
       this.formattedEndTime = minutes !== 0 ? format(endTime, 'h:mm a') : format(endTime, 'h a');
     }
     else {
-      this.formattedStartTime = startMinutes !== 0 ? format(this.event.dateTime, 'h:mm a') : format(this.event.dateTime, 'h a');
+      this.formattedStartTime = startMinutes !== 0 ? format(this.event.start_time, 'h:mm a') : format(this.event.start_time, 'h a');
       this.formattedEndTime = minutes !== 0 ? format(endTime, 'h:mm a') : format(endTime, 'h a');
     }
   }

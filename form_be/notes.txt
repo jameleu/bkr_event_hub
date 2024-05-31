@@ -55,3 +55,23 @@ sp_field->
 
 ********must have validator in .ts if give formControlName in html
 
+change public variables instead of react hooks in angular! also make sure that if want limiter, have onChange to change on change of value in textbox (no need for custom up/down buttons)
+
+spans have no br
+
+formControlName should be on the input html tag
+
+can make file upload button by linking button to input's ID (all in HTML)
+can make button activate input all in HTML:
+   <button mat-icon-button (click)="fileInput.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    <input #fileInput type="file" formControlName="file" style="display: none;">
+
+must put components in DECLARATIONS in module to use the imported modules that is in app module
+
+
+to use your gmail for sending out emails automatically, must create app password (search that up in account settings) and store that in your app
+also, must use Django User base class (abstract incldued class) if using AuthAll to send out verification emails
+in fact, should see if any django abstract classes are good for what you are thinking about using since this is what most libraries will work with
+need serializer for rest api to translate python data to json

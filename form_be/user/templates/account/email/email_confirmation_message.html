@@ -1,0 +1,23 @@
+<!-- templates/account/email/one_time_login_message.html -->
+{% load account %}{% user_display user as user_display %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Verification</title>
+</head>
+<body>
+    <p>Hello {{ user_display }}!</p>
+
+    <p>Thank you for registering at Great UofM Baking Club's (GMBC) website, {{ current_site }}!</p>
+
+    <p>Please click the link below to verify your email address and complete the registration process:</p>
+
+    <p><a href="http://localhost:4200/verify-email/{{ uid }}/{{ token }}/">http://localhost:4200/verify-email/{{ uid }}/{{ token }}/</a></p>
+
+    <p>The email will expire in 1 day. If you did not register for an account, please ignore this email. If you have any concerns, please
+    email <a href="mailto:greatuofmbakingclub@gmail.com">greatuofmbakingclub@gmail.com</a>.</p>
+
+    <p>Best regards,<br>
+    GMBC Officers</p>
+</body>
+</html>

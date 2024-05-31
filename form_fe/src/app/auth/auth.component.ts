@@ -1,37 +1,65 @@
 // login.component.ts
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MaterialModule } from '../material.module';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { OtpComponent } from './otp.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { onlyLetters } from '../validators/only-letters';
+import { ErrorModalComponent } from '../err/err_modal.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   user_id: number;
   first_time: boolean;
+  action: string;
   
-  constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     this.loginForm = this.fb.group({
-      uniqname: ['', Validators.required],
-      fName: ['', Validators.required],
-      lName: ['', Validators.required],
+      uniqname: ['', [onlyLetters(), Validators.required]],
+      fName: ['', [onlyLetters(), Validators.required]],
+      lName: ['', [onlyLetters(), Validators.required]],
     });
     this.user_id = -100;
     this.first_time = this.user_id === -1;    
+    this.action = this.route.snapshot.data['action'];
   }
+
+  ngOnInit(): void {
+    console.log(this.action)
+    if (this.action === 'err') {
+      this.openErrorModal();
+    }
+    else if (this.action === 'errV') {
+      this.openErrorModalVerify();
+    }
+  }
+  openErrorModal(): void {
+    this.dialog.open(ErrorModalComponent, {
+      width: '50vw',
+      data: { message: 'An error occurred during login. Try logging in again.', err_type: "auth" }
+    });
+  }
+  openErrorModalVerify(): void {
+    this.dialog.open(ErrorModalComponent, {
+      width: '50vw',
+      data: { message: 'An error occurred during verifying your email. Try creating an account again.', err_type: "auth" }
+    });
+  }
+
   getControl(controlName: string) {
     return this.loginForm.get(controlName)
   }
   onSubmit(form: NgForm) {
-    if (this.loginForm.get('uniqname')?.value === '') {
-      console.log("missing uniqname!")
+    if (this.loginForm.get('uniqname')?.value === '' || this.loginForm.get('uniqname')?.hasError("onlyLetters")) {
+      console.log("missing/bad uniqname!")
       return;
     }
     // const credentials = this.loginForm.value;  //TODO store this somehow in session or rest api
@@ -46,7 +74,7 @@ export class LoginComponent {
           this.user_id = (response as any)['id'];
           this.first_time = this.user_id === -1;
           if(!this.first_time) {
-            this.openOtpModal();
+            this.login(formData)
           }
           //otherwise, request for new info to make account (see template)
         },
@@ -62,8 +90,8 @@ export class LoginComponent {
       }
       const new_data = {
         username: formData.user,
-        first: this.loginForm.get('fName')?.value,
-        last: this.loginForm.get('lName')?.value,
+        first_name: this.loginForm.get('fName')?.value,
+        last_name: this.loginForm.get('lName')?.value,
       };
       console.log(new_data);
       console.log("creating new user!");
@@ -109,5 +137,17 @@ export class LoginComponent {
     // window.location.reload();
     this.first_time = false;
     this.loginForm.reset();
+  }
+  login(formData: any) {
+    const params = new HttpParams().set('uniqname', formData.user);
+    this.http.get("http://127.0.0.1:8000/v1/users/auth/", {params: params}).subscribe(
+      (response) => {
+        console.log("User login process started successfully: ", response);
+      },
+      (error) => {
+        console.error("Error starting login process: ", error);
+      }
+    );
+    this.router.navigate(['/login-confirm-sent/'])
   }
 }

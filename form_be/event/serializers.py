@@ -1,6 +1,6 @@
 # events/serializers.py
 from rest_framework import serializers
-from .models import Event, Attendance, Waitlist, BufferList
+from .models import Event, Attendance, Waitlist, BufferList, UploadedFile
 
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,4 +20,9 @@ class WaitlistSerializer(serializers.ModelSerializer):
 class BufferListSerializer(serializers.ModelSerializer):
     class Meta:
         model = BufferList
+        fields = '__all__'
+        
+class UploadedFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UploadedFile
         fields = '__all__'

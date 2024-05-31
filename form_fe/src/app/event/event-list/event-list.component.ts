@@ -5,6 +5,7 @@ import { Event } from '../event.model';
 import { EventComponent } from '../event.component';
 import { Subscription } from 'rxjs';
 
+
 @Component({
   selector: 'app-event-list',
   template: `
@@ -30,8 +31,10 @@ export class EventListComponent implements OnInit, OnDestroy {
         id: 1,
         name: 'Event 1',
         description: 'Description for Event 1\yap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yapyap yap yap',
-        dateTime: new Date('2023-01-01T12:00:00'), // Replace with an actual date and time
-        duration: 120,
+        start_time: new Date(2024, 12, 24, 8, 0),
+        end_time: new Date(2024, 12, 24, 12, 30),
+        cap: 8,
+        cat: 2,
         location: 'Location 1',
         leader: "Bob",
         imageUrl: "assets/images/default_img_6.png"
@@ -40,8 +43,10 @@ export class EventListComponent implements OnInit, OnDestroy {
         id: 2,
         name: 'Event 2',
         description: 'Description for Event 2',
-        dateTime: new Date('2023-02-01T15:30:00'), // Replace with an actual date and time
-        duration: 60,
+        start_time: new Date(2025, 4, 24, 12, 30),
+        end_time: new Date(2025, 4, 24, 1, 0),
+        cap: 12,
+        cat: 1,
         location: 'Location 2',
         leader: "Bob",
         imageUrl: "assets/images/default_img_4.png"  // in django, will randomly assign default img if not given

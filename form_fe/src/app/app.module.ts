@@ -14,7 +14,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 import {NgxMatTimepickerModule} from 'ngx-mat-timepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
-
 import { MaterialModule } from './material.module'
 import { AppComponent } from './app.component';
 import { EventListComponent } from './event/event-list/event-list.component';
@@ -26,9 +25,15 @@ import { EventComponent } from './event/event.component';
 import { LoginComponent } from './auth/auth.component';
 import { OtpComponent } from './auth/otp.component';
 import { routes } from './app.routes'
-
+import { AdminEventListComponent } from './admin/admin-event-list.component';
+import { LoginConfirmComponent } from './auth/login_confirm.component';
+import { LoginConfirmSentComponent } from './auth/login_confirm_sent';
+import { ErrComponent } from './err/err.component';
+import { ErrorModalComponent } from './err/err_modal.component';
+import { OuterEventList } from './event/event-list/outer-event-list.component';
+import { UserEventsComponent } from './event/user_event_list/user-event-list.component';
 @NgModule({
-  declarations: [LoginComponent, OtpComponent, EventListComponent, EventFormComponent, EventWaitlistComponent, EventDetailModalComponent, EventComponent, AppComponent],
+  declarations: [OuterEventList, UserEventsComponent, ErrorModalComponent, ErrComponent, LoginConfirmSentComponent, LoginComponent, LoginConfirmComponent, AdminEventListComponent, OtpComponent, EventListComponent, EventFormComponent, EventWaitlistComponent, EventDetailModalComponent, EventComponent, AppComponent],
   imports: [BrowserModule, NgxMatTimepickerModule, MatSelectModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, FormsModule, MatRadioModule, ReactiveFormsModule, MaterialModule, CommonModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
   providers: [EventService],
   bootstrap: [AppComponent],

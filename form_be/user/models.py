@@ -1,5 +1,5 @@
 from django.db import models
-
+# can just use django abstract instead
 class User(models.Model):
     username = models.CharField(max_length=150, unique=True, db_index=True)
     first = models.CharField(max_length=255)

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,30 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+
+# Set the expiration time for password reset tokens
+PASSWORD_RESET_TIMEOUT = 900
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'user', 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                # Already defined Django-related contexts here
+
+                # `allauth` needs this from django
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 # Application definition
 
@@ -42,6 +67,11 @@ INSTALLED_APPS = [
     'membership',
     'user',
     'corsheaders',
+    # "verify_email.apps.VerifyEmailConfig",
+    'django.contrib.sites',  # Required for allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +83,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 ROOT_URLCONF = 'form_be.urls'
@@ -71,6 +102,11 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'form_be.wsgi.application'
@@ -135,3 +171,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = os.getenv('EMAIL_ID') 
+# EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PW')
+EMAIL_HOST_USER = "greatuofmbakingclub@gmail.com"
+EMAIL_HOST_PASSWORD = "pwzc aucj vjrr gzuv"
+# print(EMAIL_HOST_USER)
+# print(EMAIL_HOST_PASSWORD)
+
+DEFAULT_FROM_EMAIL = 'greatuofmbakingclub@gmail.com'

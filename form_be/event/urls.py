@@ -1,7 +1,10 @@
 # events/urls.py
-from django.urls import path
-from .views import EventListAPIView, EventDetailAPIView,\
-WaitlistListAPIView, WaitlistDetailAPIView, AttendanceListAPIView, AttendanceDetailAPIView, BufferlistDetailAPIView, BufferlistListAPIView
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import EventListAPIView, EventDetailAPIView, UploadedFileViewSet, WaitlistListAPIView, WaitlistDetailAPIView, AttendanceListAPIView, AttendanceDetailAPIView, BufferlistDetailAPIView, BufferlistListAPIView, admin_event_list, user_signed_up_event_list
+
+router = DefaultRouter()
+router.register(r'files', UploadedFileViewSet, basename='uploadedfile')  # makes a url at "files" for api endpoint to upload
 
 urlpatterns = [
     path('event/', EventListAPIView.as_view(), name='event-list'),
@@ -12,4 +15,6 @@ urlpatterns = [
     path('attendance/<int:pk>/', AttendanceDetailAPIView.as_view(), name='attendance-detail'),
     path('bufferlist/', BufferlistListAPIView.as_view(), name='buffer-list'),
     path('bufferlist/<int:pk>/', BufferlistDetailAPIView.as_view(), name='buffer-detail'),
+    path('admin-events/', admin_event_list, name='admin-event-list'),
+    path('user-events/', user_signed_up_event_list, name='user-event-list'),
 ]

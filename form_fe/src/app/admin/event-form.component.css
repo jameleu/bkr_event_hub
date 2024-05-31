@@ -4,7 +4,7 @@
     align-items: flex-start;
     height: 100vh;
     padding-top: 3%;
-    padding-bottom: 10%;
+    padding-bottom: 40%;
   }
   .title {
     padding-bottom: 2.5%;
@@ -28,5 +28,54 @@
   }
   .slider {
     padding-bottom: 1.5%;
+    margin-top: 1%;
   }
-  
+  /* TODO: fix time toggle button alignment */
+  .time_box {
+    position: relative;
+  }
+  .time_pkr {
+    position: absolute;
+    left: 94.5%;
+    top: 8%;
+  }
+  .actual_slider {
+    width: 37vw;
+  }
+  @media screen and (max-width: 900px) {
+    .actual_slider {
+      width: 28vw;
+    }
+  }
+  @media screen and (max-width: 1020px) {
+    .time_pkr {
+      left: 88%;
+    }
+  }
+  @media screen and (max-width: 600px) {
+    .actual_slider {
+      width: 10vw;
+    }
+    .time_pkr {
+      left: 80%;
+    }
+    .center-column {
+      width:80vw;
+    }
+    .title {
+      font-size: 5vw;
+    }
+  }
+  @media screen and (max-width: 346px) {
+    .slider {
+      font-size: 2vw;
+    }
+    .actual_slider {
+      width: 5vw;
+    }
+  }
+
+
+.file {
+  margin-bottom: 3vh;
+}

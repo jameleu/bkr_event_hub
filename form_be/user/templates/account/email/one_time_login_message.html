@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template</title>
+</head>
+<body>
+    <p>Hi {{ first }} {{ last }} ({{ user }})!</p>
+
+    <p>Thanks for your interest in the Great UofM Baking Club (GMBC)!</p>
+
+    <p>Use the following link to log in:</p>
+
+    <p><a href="http://localhost:4200/login-confirm/{{ uid }}/{{ token }}/">http://localhost:4200/login-confirm/{{ uid }}/{{ token }}/</a></p>
+
+    <p>This link will expire in 15 minutes.</p>
+
+    <p>Not you? Please email us any concerns at <a href="mailto:greatuofmbakingclub@gmail.com">greatuofmbakingclub@gmail.com</a>.</p>
+
+    <p>Thanks,<br>GMBC Officers</p>
+</body>
+</html>

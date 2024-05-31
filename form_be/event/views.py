@@ -1,8 +1,8 @@
 # events/views.py
-from rest_framework import generics, status
+from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
-from .models import Event, Attendance, Waitlist, BufferList
-from .serializers import EventSerializer, AttendanceSerializer, WaitlistSerializer, BufferListSerializer
+from .models import Event, Attendance, Waitlist, BufferList, UploadedFile
+from .serializers import EventSerializer, AttendanceSerializer, WaitlistSerializer, BufferListSerializer, UploadedFileSerializer
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from django.db.models import F, Sum
@@ -10,6 +10,9 @@ from .permissions import IsOwnerOrReadOnly
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.views.decorators.csrf import csrf_exempt
+from verify_email.email_handler import send_verification_email
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view, permission_classes
 import math
 
 def get_score(user, attendance, absences, cancellations, attendance_in_row, desire):
@@ -216,3 +219,31 @@ class BufferlistDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         instance = self.get_object()
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class UploadedFileViewSet(viewsets.ModelViewSet):
+    serializer_class = UploadedFileSerializer
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data)
+        if serializer.is_valid():
+            uploaded_file = serializer.save()
+            file_url = uploaded_file.file.url  # Get the URL of the uploaded file
+            return Response({'file_url': file_url}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def user_signed_up_event_list(request):
+    user_id = request.user.id
+    signed_up_events = Attendance.objects.filter(user_id=user_id).values_list('event_id', flat=True)
+    events = Event.objects.filter(id__in=signed_up_events)
+    serializer = EventSerializer(events, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def admin_event_list(request):
+    admin_id = request.user.id
+    events = Event.objects.filter(leader_creator_id=admin_id)
+    serializer = EventSerializer(events, many=True)
+    return Response(serializer.data)

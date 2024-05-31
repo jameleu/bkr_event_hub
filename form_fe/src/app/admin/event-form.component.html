@@ -2,21 +2,21 @@
   <div class="center-column">
     <h1 class="title"> Add Event </h1>
     <mat-form-field>
-      <input matInput placeholder="Event Name" formControlName="name" required>
+      <input matInput placeholder="Event Name*" formControlName="name" required>
       <mat-error *ngIf="getControl('name')?.hasError('required')">
         Required value
       </mat-error>
     </mat-form-field>
     
     <mat-form-field>
-      <textarea matInput placeholder="Event Description" formControlName="description"></textarea>
+      <textarea matInput placeholder="Event Description*" formControlName="description"></textarea>
       <mat-error *ngIf="getControl('description')?.hasError('required')">
         Required value
       </mat-error>
     </mat-form-field>
     <mat-form-field>
       <!-- input linked to given picker -->
-      <input matInput [matDatepicker]="this_picker" formControlName="date" placeholder="Choose a date">
+      <input matInput [matDatepicker]="this_picker" formControlName="date" placeholder="Choose a date*">
       <!-- calendar image linked to given picker: -->
       <mat-datepicker-toggle matSuffix [for]="this_picker"></mat-datepicker-toggle>
       <!-- name picker here:  -->
@@ -27,10 +27,10 @@
     </mat-form-field>
     
     <!-- sp_field->(input form,toggle,ID) -->
-    <mat-form-field>
+    <mat-form-field class="time_box">
 
-      <input matInput [ngxMatTimepicker]="time_picker" formControlName="time" placeholder="Choose a time">
-      <ngx-mat-timepicker-toggle class="time_picker" [for]="time_picker"></ngx-mat-timepicker-toggle>
+      <input matInput [ngxMatTimepicker]="time_picker" formControlName="time" placeholder="Choose a time*">
+      <ngx-mat-timepicker-toggle [for]="time_picker" class="time_pkr"></ngx-mat-timepicker-toggle>
       <ngx-mat-timepicker [minutesGap]="5" [enableKeyboardInput]="true" #time_picker></ngx-mat-timepicker>
       
       <mat-error *ngIf="getControl('time')?.hasError('required')">
@@ -50,28 +50,77 @@
         (MM/DD/YYYY, HH:MM [AM/PM])</mat-hint>
     </mat-form-field> -->
 
-    <div class="slider">
-      <span><b>Duration:</b> 0.5 hrs</span>
-      <mat-slider min="0.5" max="8" step="0.5" showTickMarks discrete [displayWith]="formatLabel" thumbLabel>
-        <input matSliderThumb>
+    <div>
+      <span><b>Duration:</b> </span>
+      </div>
+      <div class="slider">
+      <span>0.5 hrs   </span>
+ 
+      <mat-slider class="actual_slider" min="0.5" max="8" step="0.5" showTickMarks discrete [displayWith]="formatLabel" thumbLabel>
+        <input matSliderThumb formControlName="duration">
       </mat-slider>
-      <span>8 hours</span>
+      <span>   8 hrs</span>
     </div>
 
     <mat-form-field>
-      <input matInput placeholder="Event Location" formControlName="location">
+      <input matInput placeholder="Event Location*" formControlName="location">
       <mat-error *ngIf="getControl('location')?.hasError('required')">
         Required value
       </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input matInput placeholder="Leader Name" formControlName="leader">
+      <input matInput type="number" formControlName="cap" placeholder="Capacity (max number of people)" (change)="onChange()" [min]="minValue" [max]="maxValue">
+      <mat-error *ngIf="getControl('cap')?.hasError('required')">
+        Required value
+      </mat-error>
+      <mat-error *ngIf="getControl('cap')?.hasError('max')">
+        Ensure the max capacity is less than or equal to 16 people.
+      </mat-error>
+      <mat-error *ngIf="getControl('cap')?.hasError('min')">
+        Ensure the max capacity is more than or equal to 4 people.
+      </mat-error>
+      <mat-hint> Enforced rule: Max capacity is 4-16 people.</mat-hint>
+    </mat-form-field>
+
+    <!-- TODO: make a get request to get stored options -->
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select [(value)]="selectedOption" multiple formControlName="cat">
+        <mat-option value="0">Cookies</mat-option>
+        <mat-option value="1">Cake</mat-option>
+        <mat-option value="2">Bread</mat-option>
+        <mat-option value="3">Egg-based (like Souffles/Flan/Custard/Pudding/etc.)</mat-option>
+        <mat-option value="4">Decorate</mat-option>
+        <mat-option value="5">MDining</mat-option>
+        <mat-option value="6">Chemically Leavened (like Brownies or Muffins)</mat-option>
+        <mat-option value="7">Pastry/Tarts</mat-option>
+      </mat-select>
+      <mat-error *ngIf="getControl('cat')?.hasError('required')"> Required value </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Leader Name*" formControlName="leader">
       <mat-error *ngIf="getControl('leader')?.hasError('required')">
         Required value
       </mat-error>
     </mat-form-field>
+    
+    <div> Lesson Banner Image (optional)
+      <button class="file" mat-icon-button (click)="fileInput.click()">
+      <mat-icon>attach_file</mat-icon>
+      </button>
+      <input #fileInput type="file" formControlName="file" style="display: none;">
+    </div>
 
-    <button mat-raised-button color="primary" type="submit">Create Event</button>
+  
+
+    <button mat-raised-button color="primary" type="submit"> 
+      <ng-container *ngIf="!is_edit; else saveTemplate">
+        Create Event
+      </ng-container>
+      <ng-template #saveTemplate>
+        Save </ng-template>
+      </button>
   </div>
 </form>

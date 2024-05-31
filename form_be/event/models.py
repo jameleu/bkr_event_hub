@@ -4,11 +4,13 @@ from user.models import User
 class Event(models.Model):
     desc = models.TextField()
     name = models.CharField(max_length=255)
-    time_date = models.DateTimeField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
     location = models.CharField(max_length=255)
     waitlist_id = models.OneToOneField('Waitlist', on_delete=models.SET_NULL, null=True, blank=True)
-    leader_creator = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.CharField(max_length=255)
+    leader_creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    category = models.TextField()
+    file_url = models.CharField(max_length=255)
     capacity = models.IntegerField()
 
 class Waitlist(models.Model):
@@ -28,4 +30,10 @@ class BufferList(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     comment = models.TextField(blank=True, null=True)
     
-    
+class UploadedFile(models.Model):
+    file = models.FileField(upload_to='user_event_banners/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True, null=True)

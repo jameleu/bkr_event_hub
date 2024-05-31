@@ -1,0 +1,28 @@
+<div>
+<div *ngIf="is_superuser">
+  <button (click)="goToAdminPage()">Create Admin User</button>
+</div>
+<ng-container *ngIf="events.length > 0; else noEvents">
+    <table class="center_table">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of events">
+          <td>{{ event.name }}</td>
+          <td>
+            <button (click)="editEvent(event.id)" class="icon_image"><mat-icon>edit</mat-icon></button>
+            <button (click)="deleteEvent(event.id)" class="icon_image"><mat-icon>delete</mat-icon></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</ng-container>
+  
+  <ng-template #noEvents>
+    <p>No events available.</p>
+  </ng-template>
+</div>
