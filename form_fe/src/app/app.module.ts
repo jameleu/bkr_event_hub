@@ -32,8 +32,9 @@ import { ErrComponent } from './err/err.component';
 import { ErrorModalComponent } from './err/err_modal.component';
 import { OuterEventList } from './event/event-list/outer-event-list.component';
 import { UserEventsComponent } from './event/user_event_list/user-event-list.component';
+import { AdminLoginComponent } from './auth/admin_login.component';
 @NgModule({
-  declarations: [OuterEventList, UserEventsComponent, ErrorModalComponent, ErrComponent, LoginConfirmSentComponent, LoginComponent, LoginConfirmComponent, AdminEventListComponent, OtpComponent, EventListComponent, EventFormComponent, EventWaitlistComponent, EventDetailModalComponent, EventComponent, AppComponent],
+  declarations: [OuterEventList, UserEventsComponent, AdminLoginComponent, ErrorModalComponent, ErrComponent, LoginConfirmSentComponent, LoginComponent, LoginConfirmComponent, AdminEventListComponent, OtpComponent, EventListComponent, EventFormComponent, EventWaitlistComponent, EventDetailModalComponent, EventComponent, AppComponent],
   imports: [BrowserModule, NgxMatTimepickerModule, MatSelectModule, MatDatepickerModule, MatFormFieldModule, MatInputModule, MatNativeDateModule, FormsModule, MatRadioModule, ReactiveFormsModule, MaterialModule, CommonModule, BrowserAnimationsModule, HttpClientModule, RouterModule.forRoot(routes)],
   providers: [EventService],
   bootstrap: [AppComponent],

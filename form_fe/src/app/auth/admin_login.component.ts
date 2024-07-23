@@ -27,7 +27,7 @@ import { onlyLetters } from '../validators/only-letters';
     </div>
     </form>
     `,
-  styleUrls: ['./auth_login.component.css']
+  styleUrls: ['./admin_login.component.css']
 })
 export class AdminLoginComponent {
   loginForm: FormGroup;
