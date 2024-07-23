@@ -10,6 +10,7 @@ import { ErrComponent } from './err/err.component';
 import { OuterEventList } from './event/event-list/outer-event-list.component';
 import { AuthGuard } from './auth_tools/auth.guard';
 import { AdminAuthGuard } from './auth_tools/admin-auth.guard';
+import { AdminLoginComponent } from './auth/admin_login.component';
 
 export const routes: Routes = [
   { path: '', component: OuterEventList },

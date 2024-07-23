@@ -1,5 +1,5 @@
 // admin_login.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -29,7 +29,7 @@ import { onlyLetters } from '../validators/only-letters';
     `,
   styleUrls: ['./auth_login.component.css']
 })
-export class LoginComponent {
+export class AdminLoginComponent {
   loginForm: FormGroup;
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient, private router: Router, private route: ActivatedRoute) {
