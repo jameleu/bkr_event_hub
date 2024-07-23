@@ -157,6 +157,9 @@ export class LoginComponent implements OnInit {
         console.error("Error starting login process: ", error);
       }
     );
-    this.router.navigate(['/login-confirm-sent/'])
+    this.router.navigate(['/login-confirm-sent/']);
+  }
+  admin(): void {
+    this.router.navigate(['/auth/admin/']);
   }
 }

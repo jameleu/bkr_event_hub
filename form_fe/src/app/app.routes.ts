@@ -19,8 +19,7 @@ export const routes: Routes = [
   { path: 'auth/err', component: LoginComponent, data: { action: 'err' } },
   { path: 'auth/err/verify', component: LoginComponent, data: { action: 'errV' } },
   { path: 'auth/login', component: LoginComponent, data: { action: 'login' } },
-  //TODO
-  { path: 'auth/admin', component: LoginComponent, data: { action: 'err' } },
+  { path: 'auth/admin', component: AdminLoginComponent },
   
   { path: 'err', component: ErrComponent },
   { path: 'admin', component: AdminEventListComponent, canActivate: [AdminAuthGuard] },

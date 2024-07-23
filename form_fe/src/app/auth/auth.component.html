@@ -1,4 +1,5 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" class="centered-form">
+<button mat-button class="log_but" (click)="admin()">Admin</button>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" class="centered-form">    
     <div class="center-column">
       <h1 class="title"> UMich Email Verification Login </h1>
       <mat-form-field>

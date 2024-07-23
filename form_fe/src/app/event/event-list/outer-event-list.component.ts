@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
         </div>
         <ng-template #elseTemplate> 
         <button mat-button class="ev_but" (click)="toggleEvents()">All Events</button>
-        <button mat-button class="log_but" (click)="logout()">Logout</button>
+        <button mat-button class="log_but" (click)="login()">Login</button>
         <app-event-list/>
         </ng-template>
 
