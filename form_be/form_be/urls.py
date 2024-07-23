@@ -23,5 +23,5 @@ urlpatterns = [
     path('v1/users/', include('user.urls')),
     path('v1/membership/', include('membership.urls')),
     # path('verification/', include('verify_email.urls')),
-    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('allauth.urls')),
 ]

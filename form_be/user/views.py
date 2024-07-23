@@ -7,11 +7,10 @@ from .serializers import UserSerializer, AdminSerializer
 from django.contrib.auth.models import User
 # from allauth.account.utils import send_email_confirmation
 from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import login
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
-from allauth.account.models import EmailAddress
+# from allauth.account.models import EmailAddress
 from rest_framework.permissions import IsAuthenticated
 from .email_conf import custom_token_generator, send_custom_email_confirmation
 from .decorators import login_required
@@ -117,7 +116,6 @@ class AdminDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET'])
-@csrf_exempt
 def one_time_login_view(request, uidb64, token):
     try:
         uid = force_str(urlsafe_base64_decode(uidb64))
@@ -126,9 +124,17 @@ def one_time_login_view(request, uidb64, token):
         user = None
 
     if user is not None and custom_token_generator.check_token(user, token):
-        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        print(request)
+        request.session["user_id"] = uid
+        print("essir")
+        request.session.save()
+        print(request.session["user_id"])
+        print("saved")
+        request.session.modified = True
         login(request, user)
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        print(request.user)        
+        return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+
     else:
         return Response(status=status.HTTP_403_FORBIDDEN)
 
@@ -147,6 +153,13 @@ def verify_user(request, uidb64, token):
     else:
         return Response(status=status.HTTP_403_FORBIDDEN)
 @api_view(['GET'])
+def logout(request):
+    try:
+        del request.session["user_id"]
+    except KeyError:
+        pass
+    return HttpResponse("You're logged out.")
+@api_view(['GET'])
 def start_login(request):
     email = request.GET.get('uniqname') + "@umich.edu"
     # to not be done without confirming exists
@@ -160,4 +173,16 @@ def start_login(request):
         return Response(status=status.HTTP_204_NO_CONTENT)
     except:
         return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)
-
+@api_view(['GET'])
+def is_logged_in(request):
+    user = User.objects.get()
+    print(user)
+    print(request.user)
+    login(request, user)
+    print("i'm loggedin:", request.user.is_authenticated)
+    if request.user.is_authenticated:
+        print("loggerrin")
+        return Response ({'is_logged_in': True, 'user': request.user.username}, status=status.HTTP_200_OK)
+    else:
+        print("not loggedin")
+        return Response({'is_logged_in': False}, status=status.HTTP_200_OK)

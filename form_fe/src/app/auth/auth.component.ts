@@ -40,6 +40,9 @@ export class LoginComponent implements OnInit {
     else if (this.action === 'errV') {
       this.openErrorModalVerify();
     }
+    else if (this.action === "login") {
+      this.openErrorModalMustLogin();
+    }
   }
   openErrorModal(): void {
     this.dialog.open(ErrorModalComponent, {
@@ -51,6 +54,12 @@ export class LoginComponent implements OnInit {
     this.dialog.open(ErrorModalComponent, {
       width: '50vw',
       data: { message: 'An error occurred during verifying your email. Try creating an account again.', err_type: "auth" }
+    });
+  }
+  openErrorModalMustLogin(): void {
+    this.dialog.open(ErrorModalComponent, {
+      width: '50vw',
+      data: { message: 'Please one-time login with your email!', err_type: "must_login" }
     });
   }
 

@@ -192,18 +192,18 @@ class BufferlistListAPIView(generics.ListCreateAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = BufferList.objects.all()
     serializer_class = BufferListSerializer
+    def create(self, request, *args, **kwargs):
+        user = request.user.username
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        
 class BufferlistDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsOwnerOrReadOnly]
     queryset = BufferList.objects.all()
     serializer_class = BufferListSerializer
-    lookup_field = 'user__student_email'  # Assuming 'user' is a ForeignKey in the Waitlist model
+    lookup_field = 'user__username'
 
-    def get_object(self):
-        email = self.kwargs.get('email')
-        queryset = self.filter_queryset(self.get_queryset())
-        obj = get_object_or_404(queryset, user__student_email=email)
-        self.check_object_permissions(self.request, obj)
-        return obj
 
     def update(self, request, *args, **kwargs):
         email = self.kwargs.get('email')
@@ -215,7 +215,7 @@ class BufferlistDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         return Response(serializer.data)
 
     def destroy(self, request, *args, **kwargs):
-        email = self.kwargs.get('email')
+        username = request.user.username
         instance = self.get_object()
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

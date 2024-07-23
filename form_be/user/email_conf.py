@@ -1,12 +1,12 @@
-from allauth.account.models import EmailAddress, EmailConfirmation
-from allauth.account.utils import user_email
+# from allauth.account.models import EmailAddress, EmailConfirmation
+# from allauth.account.utils import user_email
 from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode
 # from allauth.account.utils import send_email_confirmation
 from django.contrib.auth.models import User
 from django.utils.encoding import force_bytes
-from allauth.account.adapter import get_adapter
+# from allauth.account.adapter import get_adapter
 from django.template.loader import render_to_string
 from django.conf import settings
 from django.contrib.auth.tokens import PasswordResetTokenGenerator

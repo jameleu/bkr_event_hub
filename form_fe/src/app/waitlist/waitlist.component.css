@@ -43,6 +43,7 @@
   
   .center-column > * {
     margin-bottom: 2%;
+    font-family: "HelveticaTODO";
   }
   .waitlist > * {
     margin-bottom: 3.5%;

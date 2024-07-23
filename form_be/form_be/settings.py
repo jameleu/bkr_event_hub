@@ -68,10 +68,10 @@ INSTALLED_APPS = [
     'user',
     'corsheaders',
     # "verify_email.apps.VerifyEmailConfig",
-    'django.contrib.sites',  # Required for allauth
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    # 'django.contrib.sites',  # Required for allauth
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -83,8 +83,14 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'allauth.account.middleware.AccountMiddleware'
+    # 'allauth.account.middleware.AccountMiddleware'
 ]
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_COOKIE_SECURE = False  # TODO FIX LATER
+SESSION_COOKIE_AGE = 3600
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'None'
 
 ROOT_URLCONF = 'form_be.urls'
 
@@ -106,7 +112,7 @@ TEMPLATES = [
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'form_be.wsgi.application'
@@ -144,9 +150,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
+CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',  # Add your Angular application URL
+    'http://localhost:4200',
+    'http://127.0.0.1:4200',
+    
 ]
 
 

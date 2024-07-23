@@ -1,4 +1,5 @@
 .ev_but {
     left: 2vw;
-    background-color: purple;
+    background-color: rgb(255, 205, 155);
+    padding: 4vh 1vw;
 }

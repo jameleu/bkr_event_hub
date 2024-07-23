@@ -27,15 +27,17 @@
         <div class="center-column">
             <h1 class="title"> Sign Up! </h1>    
             <p> <b>Waitlist total:</b> {{ totalWaitlist }} </p>
-            <mat-form-field class="name">
+            <!-- <mat-form-field class="name">
                 <input matInput placeholder="Your Name" formControlName="name" required>
                 <mat-error *ngIf="getControl('name')?.hasError('required')">
                     Required value
                 </mat-error>
-            </mat-form-field>
+            </mat-form-field> -->
             <mat-radio-group>
-                <mat-radio-button [value]="true">Yes</mat-radio-button>
-                <mat-radio-button [value]="false">No</mat-radio-button>
+                <p> How interested in this event are you? </p>
+                <mat-radio-button [value]="3">Very </mat-radio-button>
+                <mat-radio-button [value]="2">Somewhat</mat-radio-button>
+                <mat-radio-button [value]="1">Somewhat</mat-radio-button>
             </mat-radio-group>
             <mat-error *ngIf="getControl('desire')?.hasError('required')">
                 Required value

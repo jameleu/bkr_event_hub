@@ -34,6 +34,7 @@ import { environment } from '../../environments/environment';
         this.userId = this.route.snapshot.paramMap.get('userId');
         this.token = this.route.snapshot.paramMap.get('token');
         const action = this.route.snapshot.data['action'];
+        console.log(action)
         if (action === 'verify') {
             this.verifyUser();
         } else if (action === 'login') {
@@ -63,7 +64,7 @@ import { environment } from '../../environments/environment';
         this.http.get(`${environment.apiUrl}/v1/users/one-time-login/${this.userId}/${this.token}/`, {}).subscribe(
             response => {
                 setTimeout(() => {
-                    this.router.navigate(["/"]);
+                    // this.router.navigate(["/"]);
                 }, 500)
                 console.log("Logged in: ", response);
             },

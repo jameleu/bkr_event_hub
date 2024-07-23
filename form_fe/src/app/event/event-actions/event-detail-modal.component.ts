@@ -46,7 +46,7 @@ export class EventDetailModalComponent {
   }
   goToWaitlist(eventId: number): void {
     this.dialogRef.close();
-    this.router.navigate(['/event-waitlist', eventId]);
+    this.router.navigate(['/wl', eventId]);
   }
   onClose(): void {
     this.dialogRef.close();

@@ -22,3 +22,6 @@
 .center {
     position: relative;
 }
+.space {
+    height: 10vh;
+}
