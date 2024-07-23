@@ -9,6 +9,7 @@ import { onlyLetters } from '../validators/only-letters';
 @Component({
   selector: 'app-login',
   template: `
+    <button mat-button class="log_but" (click)="regular_login()">Regular Login</button>
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit($event)" class="centered-form">    
     <div class="center-column">
       <h1 class="title"> UMich Email Verification Login </h1>
@@ -17,6 +18,8 @@ import { onlyLetters } from '../validators/only-letters';
             <mat-error *ngIf="getControl('username')?.hasError('required')">
                 Required value
             </mat-error>
+        </mat-form-field>
+        <mat-form-field>
             <input matInput placeholder="Password" formControlName="password" required>
             <mat-error *ngIf="getControl('password')?.hasError('required')">
                 Required value
@@ -34,7 +37,7 @@ export class AdminLoginComponent {
 
   constructor(private fb: FormBuilder, private dialog: MatDialog, private http: HttpClient, private router: Router, private route: ActivatedRoute) {
     this.loginForm = this.fb.group({
-      username: ['', [onlyLetters(), Validators.required]],
+      username: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
   }
@@ -68,7 +71,7 @@ export class AdminLoginComponent {
     );
     this.router.navigate(['/login-confirm-sent/']);
   }
-  regular(): void {
+  regular_login(): void {
     this.router.navigate(['/auth/']);
   }
 }

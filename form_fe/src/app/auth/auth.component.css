@@ -59,3 +59,11 @@
       font-size: 2.4vw;
     }
   }
+  .log_but {
+    background-color: rgb(255, 205, 155);
+    padding: 4vh 1vw;
+    position: absolute;
+    margin-bottom: 10vh;
+    top: 3vh;
+    right: 2vw;
+}
