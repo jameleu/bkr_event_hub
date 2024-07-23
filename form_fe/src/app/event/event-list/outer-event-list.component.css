@@ -1,5 +1,17 @@
-.ev_but {
-    left: 2vw;
+.ev_but, .log_but {
     background-color: rgb(255, 205, 155);
     padding: 4vh 1vw;
+    position: absolute;
+    margin-bottom: 10vh;
+    top: 3vh;
+
 }
+.ev_but {
+    right: 2vw;
+    margin-right: 10vw;
+}
+
+.log_but {
+    right: 2vw;
+}
+/* TODO: media screen for button */
