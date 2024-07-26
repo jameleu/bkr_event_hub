@@ -5,17 +5,28 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
-  templateUrl: './create-user.component.html',
+  template:  `
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <label for="username">Username:</label>
+  <input type="text" id="username" formControlName="username" required>
+
+  <label for="email">Email:</label>
+  <input type="email" id="email" formControlName="email" required>
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" formControlName="password" required>
+
+  <button type="submit" [disabled]="userForm.invalid">Create User</button>
+</form>
+
+  `,
   styleUrls: ['./create-user.component.css']
 })
 export class CreateUserComponent {
   userForm: FormGroup;
-  //TODO MAKE IT A ONE TIME LINK THAT USER CAN MAKE THEMSELVES
   constructor(private formBuilder: FormBuilder, private router: Router) {
     this.userForm = this.formBuilder.group({
-        username: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
-        password: ['', [Validators.required, Validators.minLength(6)]]
       });
   }
 

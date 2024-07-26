@@ -7,7 +7,9 @@ class Event(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     location = models.CharField(max_length=255)
+    # make it create it automatically
     waitlist_id = models.OneToOneField('Waitlist', on_delete=models.SET_NULL, null=True, blank=True)
+    # somehow get this to SYNC TODO
     leader_creator = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     category = models.TextField()
     file_url = models.CharField(max_length=255)
